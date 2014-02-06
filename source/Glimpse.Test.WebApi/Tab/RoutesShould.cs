@@ -1,0 +1,112 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using Glimpse.WebApi.AlternateType;
+using Glimpse.WebApi.Model;
+using Glimpse.WebApi.Tab;
+using Glimpse.Core.Extensibility;
+using Glimpse.Core.Message;
+using Glimpse.Test.Common; 
+using Moq;
+using Xunit;
+using Xunit.Extensions; 
+
+namespace Glimpse.Test.WebApi.Tab
+{ 
+    public class RoutesShould
+    {
+        [Theory, AutoMock]
+        public void ReturnName(Routes tab)
+        {
+            Assert.Equal("Routes", tab.Name);
+        }
+
+        [Theory, AutoMock]
+        public void ReturnDocumentationUri(Routes tab)
+        {
+            Assert.True(tab.DocumentationUri.Contains("getGlimpse.com"));
+        }
+
+        [Theory, AutoMock]
+        public void ReturnRouteInstancesEvenWhenContextIsNull(Routes tab, ITabContext context)
+        {
+            context.Setup(x => x.GetRequestContext<HttpContextBase>()).Returns((HttpContextBase)null);
+
+            GlobalConfiguration.Configuration.Routes.Clear();
+            GlobalConfiguration.Configuration.Routes.Ignore("Test");
+             
+            var data = tab.GetData(context) as IList<RouteModel>;
+
+            Assert.NotNull(data);
+            Assert.Equal(GlobalConfiguration.Configuration.Routes.Count, data.Count); 
+        }
+
+        [Theory, AutoMock]
+        public void ReturnRouteInstancesEvenWhenRoutesTableEmpty(Routes tab, ITabContext context)
+        {
+            GlobalConfiguration.Configuration.Routes.Clear();
+
+            var data = tab.GetData(context) as IList<RouteModel>;
+
+            Assert.NotNull(data);
+            Assert.Empty(data);
+        }
+
+        [Theory, AutoMock]
+        public void ReturnProperNumberOfInstances(Routes tab, ITabContext context)
+        {
+            GlobalConfiguration.Configuration.Routes.Clear();
+            GlobalConfiguration.Configuration.Routes.Ignore("Something");
+
+            var data = tab.GetData(context) as IList<RouteModel>;
+
+            Assert.NotNull(data);
+            Assert.Equal(GlobalConfiguration.Configuration.Routes.Count, data.Count);
+        }
+
+        [Theory, AutoMock]
+        public void SubscribeToConstraintMessageTypes(Routes tab, ITabSetupContext setupContext)
+        { 
+            tab.Setup(setupContext);
+
+            setupContext.MessageBroker.Verify(mb => mb.Subscribe(It.IsAny<Action<IHttpRoute.ProcessConstraint.Message>>()));
+            setupContext.MessageBroker.Verify(mb => mb.Subscribe(It.IsAny<Action<IHttpRoute.GetRouteData.Message>>())); 
+        }
+
+        [Theory, AutoMock]
+        public void MatchConstraintMessageToRoute(Routes tab, ITabContext context, System.Web.Routing.IRouteConstraint constraint)
+        {
+            var route = new System.Web.Http.Routing.HttpRoute("url", new System.Web..Http.Routing.RouteValueDictionary { { "Test", "Other" } }, new System.Web.Http.Routing.RouteValueDictionary { { "Test", constraint } }, new System.Web.Http.Routing.RouteValueDictionary { { "Data", "Tokens" } }, new System.Web.Http.Routing.PageRouteHandler("~/Path"));
+
+            GlobalConfiguration.Configuration.Routes.Clear();
+            GlobalConfiguration.Configuration.Routes.Add(route); 
+
+            var routeMessage = new IHttpRoute.GetRouteData.Message(route.GetHashCode(), new System.Web.Http.Routing.RouteData(), "routeName")
+                .AsSourceMessage(route.GetType(), null)
+                .AsTimedMessage(new TimerResult { Duration = TimeSpan.FromMilliseconds(19) });
+            var constraintMessage = new IHttpRoute.ProcessConstraint.Message(new IHttpRoute.ProcessConstraint.Arguments(new object[] { (HttpContextBase)null, constraint, "test", (System.Web.Http.Routing.RouteValueDictionary)null, System.Web.Http.Routing.RouteDirection.IncomingRequest }), route.GetHashCode(), true)
+                .AsTimedMessage(new TimerResult { Duration = TimeSpan.FromMilliseconds(25) })
+                .AsSourceMessage(route.GetType(), null);
+
+            context.TabStore.Setup(mb => mb.Contains(typeof(IList<IHttpRoute.ProcessConstraint.Message>).AssemblyQualifiedName)).Returns(true).Verifiable();
+            context.TabStore.Setup(mb => mb.Contains(typeof(IList<IHttpRoute.GetRouteData.Message>).AssemblyQualifiedName)).Returns(true).Verifiable();
+
+            context.TabStore.Setup(mb => mb.Get(typeof(IList<IHttpRoute.ProcessConstraint.Message>).AssemblyQualifiedName)).Returns(new List<IHttpRoute.ProcessConstraint.Message> { constraintMessage }).Verifiable();
+            context.TabStore.Setup(mb => mb.Get(typeof(IList<IHttpRoute.GetRouteData.Message>).AssemblyQualifiedName)).Returns(new List<IHttpRoute.GetRouteData.Message> { routeMessage }).Verifiable();
+             
+            var model = tab.GetData(context) as List<RouteModel>;       
+            var itemModel = model[0];
+             
+            Assert.NotNull(model);
+            Assert.Equal(1, model.Count);
+            Assert.NotNull(itemModel.Constraints);
+            Assert.True(itemModel.IsMatch);
+            Assert.Equal("Test", ((List<RouteConstraintModel>)itemModel.Constraints)[0].ParameterName);
+            Assert.Equal(true, ((List<RouteConstraintModel>)itemModel.Constraints)[0].IsMatch);
+            Assert.NotNull(itemModel.DataTokens);
+            Assert.Equal("Tokens", itemModel.DataTokens["Data"]);
+            Assert.NotNull(itemModel.RouteData);
+            Assert.Equal("Other", ((List<RouteDataItemModel>)itemModel.RouteData)[0].DefaultValue);
+        }
+    }
+}
