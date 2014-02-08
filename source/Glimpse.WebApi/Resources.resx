@@ -125,6 +125,5 @@
   </data>
   <data name="RouteSetupReplacedRoute" xml:space="preserve">
     <value>Replaced Route of type '{0}' with proxy implementation.</value>
-    <comment>{0} - GetType() of replaced Route</comment>
   </data>
 </root>

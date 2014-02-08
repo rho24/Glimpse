@@ -10,7 +10,7 @@ namespace Glimpse.Test.WebApi.AlternateType
         public void MatchValue()
         {
             var constraint = new IHttpRouteConstraintRegex("Test");
-            var result = constraint.Match(null, null, "Param", new HttpRouteValueDictionary { { "Param", "Test" }, { "OtherParam", "123" } }, HttpRouteDirection.UrlGeneration);
+            var result = constraint.Match(null, null, "Param", new System.Web.Http.Routing.HttpRouteValueDictionary { { "Param", "Test" }, { "OtherParam", "123" } }, System.Web.Http.Routing.HttpRouteDirection.UriGeneration);
 
             Assert.True(result);
         }
@@ -19,7 +19,7 @@ namespace Glimpse.Test.WebApi.AlternateType
         public void NotMatchValue()
         {
             var constraint = new IHttpRouteConstraintRegex("Test");
-            var result = constraint.Match(null, null, "Param", new HttpRouteValueDictionary { { "Param", "Other" }, { "OtherParam", "123" } }, HttpRouteDirection.UrlGeneration);
+            var result = constraint.Match(null, null, "Param", new System.Web.Http.Routing.HttpRouteValueDictionary { { "Param", "Other" }, { "OtherParam", "123" } }, System.Web.Http.Routing.HttpRouteDirection.UriGeneration);
 
             Assert.False(result);
         }

@@ -34,9 +34,9 @@ namespace Glimpse.Test.WebApi.AlternateType
         [Theory, AutoMock]
         public void PublishMessageWhenExecuted([Frozen] IExecutionTimer timer, IAlternateMethodContext context, System.Web.Routing.IRouteHandler handler)
         {
-            context.Setup(c => c.Arguments).Returns(new object[] { (System.Web.Http.HttpContextBase)null, new System.Web.Http.Routing.Route("Test", handler), (string)null, (System.Web.Routing.Http.RouteValueDictionary)null, System.Web.Http.Routing.RouteDirection.IncomingRequest });
+            context.Setup(c => c.Arguments).Returns(new object[] { (System.Web.Http.HttpContextBase)null, new System.Web.Http.Routing.HttpRoute("Test", handler), (string)null, (System.Web.Http.Routing.HttpRouteValueDictionary)null, System.Web.Http.Routing.HttpRouteDirection.UriGeneration });
             context.Setup(c => c.ReturnValue).Returns(true);
-            context.Setup(c => c.InvocationTarget).Returns(new System.Web.Http.Routing.Route("Test", null));
+            context.Setup(c => c.InvocationTarget).Returns(new System.Web.Http.Routing.HttpRoute("Test", null));
 
             var impl = new IHttpRouteConstraint.Match();
 

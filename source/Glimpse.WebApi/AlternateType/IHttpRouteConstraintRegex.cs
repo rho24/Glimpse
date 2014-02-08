@@ -6,7 +6,7 @@ using System.Web.Http.Routing;
 
 namespace Glimpse.WebApi.AlternateType
 {
-    public class IHttpRouteConstraintRegex : IHttpRouteConstraint
+    public class IHttpRouteConstraintRegex : System.Web.Http.Routing.IHttpRouteConstraint
     {
         public IHttpRouteConstraintRegex(string constraint)
         {

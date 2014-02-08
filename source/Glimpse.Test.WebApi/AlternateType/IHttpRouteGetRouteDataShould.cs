@@ -47,8 +47,8 @@ namespace Glimpse.Test.WebApi.AlternateType
         public void PublishMessageWhenExecuted([Frozen] IExecutionTimer timer, IAlternateMethodContext context, IRouteNameMixin mixin)
         {
             context.Setup(c => c.Arguments).Returns(new object[5]);
-            context.Setup(c => c.ReturnValue).Returns(new System.Web.Http.Routing.RouteData());
-            context.Setup(c => c.InvocationTarget).Returns(new System.Web.Http.Routing.Route("Test", null));
+            context.Setup(c => c.ReturnValue).Returns(new System.Web.Http.Routing.HttpRouteData());
+            context.Setup(c => c.InvocationTarget).Returns(new System.Web.Http.Routing.HttpRoute("Test", null));
             context.Setup(c => c.Proxy).Returns(mixin);
 
             var impl = new IHttpRoute.GetRouteData(typeof(T));

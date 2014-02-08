@@ -12,21 +12,21 @@ namespace Glimpse.WebApi.AlternateType
     public class IHttpRoute : IAlternateType<System.Web.Http.Routing.IHttpRoute>
     {
         private readonly IHttpRouteConstraint routeConstraintAlternate;
-        private IEnumerable<IAlternateMethod> allMethodsRouteBase;
-        private IEnumerable<IAlternateMethod> allMethodsRoute;
+        private IEnumerable<IAlternateMethod> allMethodsIHttpRoute;
+        private IEnumerable<IAlternateMethod> allMethodsHttpRoute;
 
         public IHttpRoute(IProxyFactory proxyFactory, ILogger logger)
         {
             ProxyFactory = proxyFactory;
             Logger = logger;
-            routeConstraintAlternate = new RouteConstraint(proxyFactory);
+            routeConstraintAlternate = new IHttpRouteConstraint(proxyFactory);
         }
 
-        public IEnumerable<IAlternateMethod> AllMethodsRouteBase
+        public IEnumerable<IAlternateMethod> AllMethodsIHttpRoute
         {
             get
             {
-                return allMethodsRouteBase ?? (allMethodsRouteBase = new List<IAlternateMethod>
+                return allMethodsIHttpRoute ?? (allMethodsIHttpRoute = new List<IAlternateMethod>
                 {
                     new GetRouteData(typeof(System.Web.Http.Routing.IHttpRoute)),
                     new GetVirtualPath(typeof(System.Web.Http.Routing.IHttpRoute))
@@ -34,11 +34,11 @@ namespace Glimpse.WebApi.AlternateType
             }
         }
 
-        public IEnumerable<IAlternateMethod> AllMethodsRoute
+        public IEnumerable<IAlternateMethod> AllMethodsHttpRoute
         {
             get
             {
-                return allMethodsRoute ?? (allMethodsRoute = new List<IAlternateMethod>
+                return allMethodsHttpRoute ?? (allMethodsHttpRoute = new List<IAlternateMethod>
                 {
                     new GetRouteData(typeof(System.Web.Http.Routing.HttpRoute)),
                     new GetVirtualPath(typeof(System.Web.Http.Routing.HttpRoute)),
@@ -70,11 +70,11 @@ namespace Glimpse.WebApi.AlternateType
             {
                 if (originalObj.GetType() == typeof(System.Web.Http.Routing.HttpRoute))
                 {
-                    newObj = ProxyFactory.ExtendClass<System.Web.Http.Routing.HttpRoute>(AllMethodsRoute, mixins, new object[] { route.RouteTemplate, route.Defaults, route.Constraints, route.DataTokens, route.Handler });
+                    newObj = ProxyFactory.ExtendClass<System.Web.Http.Routing.HttpRoute>(AllMethodsHttpRoute, mixins, new object[] { route.RouteTemplate, route.Defaults, route.Constraints, route.DataTokens, route.Handler });
                 }
                 else if (ProxyFactory.IsWrapClassEligible(typeof(System.Web.Http.Routing.HttpRoute)))
                 {
-                    newObj = ProxyFactory.WrapClass(route, AllMethodsRoute, mixins, new object[] { route.RouteTemplate, route.Defaults, route.Constraints, route.DataTokens, route.Handler });
+                    newObj = ProxyFactory.WrapClass(route, AllMethodsHttpRoute, mixins, new object[] { route.RouteTemplate, route.Defaults, route.Constraints, route.DataTokens, route.Handler });
                     SetupConstraints(Logger, ProxyFactory, route.Constraints);
                 }
             }
@@ -83,7 +83,7 @@ namespace Glimpse.WebApi.AlternateType
             {
                 if (ProxyFactory.IsWrapClassEligible(typeof(System.Web.Http.Routing.IHttpRoute)))
                 {
-                    newObj = ProxyFactory.WrapClass(originalObj, AllMethodsRouteBase, mixins);
+                    newObj = ProxyFactory.WrapClass(originalObj, AllMethodsIHttpRoute, mixins);
                 }
             }
 
@@ -107,7 +107,7 @@ namespace Glimpse.WebApi.AlternateType
                         var stringRouteConstraint = constraint as string;
                         if (stringRouteConstraint != null)
                         {
-                            newObj = new RouteConstraintRegex(stringRouteConstraint);
+                            newObj = new IHttpRouteConstraintRegex(stringRouteConstraint);
                         }
                     }
                     else
@@ -189,7 +189,7 @@ namespace Glimpse.WebApi.AlternateType
             public override void PostImplementation(IAlternateMethodContext context, TimerResult timerResult)
             {
                 context.MessageBroker.Publish(new Message(
-                    new Arguments(context.Arguments), context.InvocationTarget, (System.Web.Http.Routing.VirtualPathData)context.ReturnValue)
+                    new Arguments(context.Arguments), context.InvocationTarget, (System.Web.Http.Routing.IHttpVirtualPathData)context.ReturnValue)
                     .AsTimedMessage(timerResult)
                     .AsSourceMessage(context.InvocationTarget.GetType(), context.MethodInvocationTarget));
             }
@@ -252,7 +252,7 @@ namespace Glimpse.WebApi.AlternateType
             {
                 public Arguments(object[] args)
                 {
-                    Request = (HttpRequestMessage)args[0];
+                    Request = (System.Net.Http.HttpRequestMessage)args[0];
                     Constraint = args[1];
                     ParameterName = (string)args[2];
                     Values = (System.Web.Http.Routing.HttpRouteValueDictionary)args[3];

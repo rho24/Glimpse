@@ -32,19 +32,19 @@ namespace Glimpse.Test.WebApi.Tab
         {
             context.Setup(x => x.GetRequestContext<HttpContextBase>()).Returns((HttpContextBase)null);
 
-            GlobalConfiguration.Configuration.Routes.Clear();
-            GlobalConfiguration.Configuration.Routes.Ignore("Test");
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Ignore("Test");
              
             var data = tab.GetData(context) as IList<RouteModel>;
 
             Assert.NotNull(data);
-            Assert.Equal(GlobalConfiguration.Configuration.Routes.Count, data.Count); 
+            Assert.Equal(System.Web.Http.GlobalConfiguration.Configuration.Routes.Count, data.Count); 
         }
 
         [Theory, AutoMock]
         public void ReturnRouteInstancesEvenWhenRoutesTableEmpty(Routes tab, ITabContext context)
         {
-            GlobalConfiguration.Configuration.Routes.Clear();
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
 
             var data = tab.GetData(context) as IList<RouteModel>;
 
@@ -55,13 +55,13 @@ namespace Glimpse.Test.WebApi.Tab
         [Theory, AutoMock]
         public void ReturnProperNumberOfInstances(Routes tab, ITabContext context)
         {
-            GlobalConfiguration.Configuration.Routes.Clear();
-            GlobalConfiguration.Configuration.Routes.Ignore("Something");
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Ignore("Something");
 
             var data = tab.GetData(context) as IList<RouteModel>;
 
             Assert.NotNull(data);
-            Assert.Equal(GlobalConfiguration.Configuration.Routes.Count, data.Count);
+            Assert.Equal(System.Web.Http.GlobalConfiguration.Configuration.Routes.Count, data.Count);
         }
 
         [Theory, AutoMock]
@@ -76,15 +76,15 @@ namespace Glimpse.Test.WebApi.Tab
         [Theory, AutoMock]
         public void MatchConstraintMessageToRoute(Routes tab, ITabContext context, System.Web.Routing.IRouteConstraint constraint)
         {
-            var route = new System.Web.Http.Routing.HttpRoute("url", new System.Web..Http.Routing.RouteValueDictionary { { "Test", "Other" } }, new System.Web.Http.Routing.RouteValueDictionary { { "Test", constraint } }, new System.Web.Http.Routing.RouteValueDictionary { { "Data", "Tokens" } }, new System.Web.Http.Routing.PageRouteHandler("~/Path"));
+            var route = new System.Web.Http.Routing.HttpRoute("url", new System.Web.Http.Routing.HttpRouteValueDictionary { { "Test", "Other" } }, new System.Web.Http.Routing.HttpRouteValueDictionary { { "Test", constraint } }, new System.Web.Http.Routing.HttpRouteValueDictionary { { "Data", "Tokens" } }, new System.Web.Http.Routing.PageRouteHandler("~/Path"));
 
-            GlobalConfiguration.Configuration.Routes.Clear();
-            GlobalConfiguration.Configuration.Routes.Add(route); 
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("route", route); 
 
-            var routeMessage = new IHttpRoute.GetRouteData.Message(route.GetHashCode(), new System.Web.Http.Routing.RouteData(), "routeName")
+            var routeMessage = new IHttpRoute.GetRouteData.Message(route.GetHashCode(), new System.Web.Http.Routing.HttpRouteData(), "routeName")
                 .AsSourceMessage(route.GetType(), null)
                 .AsTimedMessage(new TimerResult { Duration = TimeSpan.FromMilliseconds(19) });
-            var constraintMessage = new IHttpRoute.ProcessConstraint.Message(new IHttpRoute.ProcessConstraint.Arguments(new object[] { (HttpContextBase)null, constraint, "test", (System.Web.Http.Routing.RouteValueDictionary)null, System.Web.Http.Routing.RouteDirection.IncomingRequest }), route.GetHashCode(), true)
+            var constraintMessage = new IHttpRoute.ProcessConstraint.Message(new IHttpRoute.ProcessConstraint.Arguments(new object[] { (HttpContextBase)null, constraint, "test", (System.Web.Http.Routing.HttpRouteValueDictionary)null, System.Web.Http.Routing.HttpRouteDirection.UriGeneration }), route.GetHashCode(), true)
                 .AsTimedMessage(new TimerResult { Duration = TimeSpan.FromMilliseconds(25) })
                 .AsSourceMessage(route.GetType(), null);
 
