@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web;
 using System.Web.Http.Routing;
-using Glimpse.WebApi.AlternateType;
-using Glimpse.WebApi.Inspector;
 using Glimpse.Core.Extensibility;
 using Glimpse.Core.Framework;
 using Glimpse.Test.Common;
+using Glimpse.WebApi.AlternateType;
+using Glimpse.WebApi.Inspector;
 using Moq;
 using Xunit;
 using Xunit.Extensions;
@@ -29,12 +30,11 @@ namespace Glimpse.Test.WebApi.Inspector
         public void IntergrationTestRouteProxing(RoutesInspector sut, System.Net.Http.HttpMessageHandler routeHandler, IInspectorContext context)
         {
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", new HttpRoute("Test", routeHandler));
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("BaseTyped", new NewIHttpRoute());
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("BaseTestTyped", new NewConstructorIHttpRoute("Name"));
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("SubTyped", new NewHttpRoute("test", routeHandler));
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("SubTestTyped", new NewConstructorHttpRoute("test", routeHandler, "Name"));
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Ignore("{resource}.axd/{*pathInfo}", new { resource = "Test", pathInfo = "[0-9]" });
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", new HttpRoute());
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("InterfaceTyped", new NewIHttpRoute());
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("InterfaceTestTyped", new NewConstructorIHttpRoute());
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("SubTyped", new NewHttpRoute());
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("SubTestTyped", new NewConstructorHttpRoute());
 
             context.Setup(x => x.ProxyFactory).Returns(new CastleDynamicProxyFactory(context.Logger, context.MessageBroker, () => new ExecutionTimer(new Stopwatch()), () => new RuntimePolicy()));
 
@@ -57,10 +57,10 @@ namespace Glimpse.Test.WebApi.Inspector
         }
 
         [Theory, AutoMock]
-        public void ExtendsMvcRoutes(System.Net.Http.HttpMessageHandler routeHandler, RoutesInspector sut, IInspectorContext context, HttpRoute newRoute)
+        public void ExtendsWebApiRoutes(System.Net.Http.HttpMessageHandler routeHandler, RoutesInspector sut, IInspectorContext context, HttpRoute newRoute)
         {
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", new HttpRoute("Test", routeHandler));
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", new HttpRoute());
 
             context.ProxyFactory.Setup(x => x.ExtendClass<HttpRoute>(It.IsAny<IEnumerable<IAlternateMethod>>(), It.IsAny<IEnumerable<object>>(), It.IsAny<object[]>())).Returns(newRoute).Verifiable();
 
@@ -71,7 +71,7 @@ namespace Glimpse.Test.WebApi.Inspector
         }
 
         [Theory, AutoMock]
-        public void WrapsMvcRouteDerivedTypes(RoutesInspector sut, System.Net.Http.HttpMessageHandler routeHandler, IInspectorContext context, NewHttpRoute route, HttpRoute newRoute)
+        public void WrapsWebApiRouteDerivedTypes(RoutesInspector sut, System.Net.Http.HttpMessageHandler routeHandler, IInspectorContext context, NewHttpRoute route, HttpRoute newRoute)
         {
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", route);
@@ -86,7 +86,7 @@ namespace Glimpse.Test.WebApi.Inspector
         }
 
         [Theory, AutoMock]
-        public void WrapsMvcIHttpRouteDerivedTypes(RoutesInspector sut, System.Net.Http.HttpMessageHandler routeHandler, IInspectorContext context, NewIHttpRoute route, IHttpRoute newRoute)
+        public void WrapsWebApiIHttpRouteDerivedTypes(RoutesInspector sut, System.Net.Http.HttpMessageHandler routeHandler, IInspectorContext context, NewIHttpRoute route, IHttpRoute newRoute)
         {
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", route);
@@ -100,48 +100,11 @@ namespace Glimpse.Test.WebApi.Inspector
             Assert.Same(newRoute, System.Web.Http.GlobalConfiguration.Configuration.Routes[0]);
         }
 
-        [Theory, AutoMock]
-        public void ExtendsStringConstraints(RoutesInspector sut, IInspectorContext context, NewHttpRoute route, HttpRoute newRoute, string routeConstraint)
-        {
-            route.Constraints = new HttpRouteValueDictionary { { "controller", routeConstraint } };
-
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", route);
-
-            context.ProxyFactory.Setup(x => x.IsWrapClassEligible(typeof(HttpRoute))).Returns(true).Verifiable();
-            context.ProxyFactory.Setup(x => x.WrapClass((HttpRoute)route, It.IsAny<IEnumerable<IAlternateMethod>>(), It.IsAny<IEnumerable<object>>(), It.IsAny<object[]>())).Returns(newRoute).Verifiable();
-
-            sut.Setup(context);
-
-            context.ProxyFactory.VerifyAll();
-            Assert.Same(typeof(IHttpRouteConstraintRegex), route.Constraints["controller"].GetType());
-        }
-         
-        [Theory, AutoMock]
-        public void ExtendsRouteConstraintConstraints(RoutesInspector sut, IInspectorContext context, NewHttpRoute route, HttpRoute newRoute, System.Web.Http.Routing.IHttpRouteConstraint routeConstraint, System.Web.Http.Routing.IHttpRouteConstraint newRouteConstraint)
-        {
-            route.Constraints = new HttpRouteValueDictionary { { "controller", routeConstraint } };
-
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", route);
-
-            context.ProxyFactory.Setup(x => x.IsWrapClassEligible(typeof(HttpRoute))).Returns(true).Verifiable();
-            context.ProxyFactory.Setup(x => x.WrapClass((HttpRoute)route, It.IsAny<IEnumerable<IAlternateMethod>>(), It.IsAny<IEnumerable<object>>(), It.IsAny<object[]>())).Returns(newRoute).Verifiable();
-            context.ProxyFactory.Setup(x => x.IsWrapInterfaceEligible<System.Web.Http.Routing.IHttpRouteConstraint>(typeof(System.Web.Http.Routing.IHttpRouteConstraint))).Returns(true).Verifiable();
-            context.ProxyFactory.Setup(x => x.WrapInterface(routeConstraint, It.IsAny<IEnumerable<IAlternateMethod>>(), It.IsAny<IEnumerable<object>>())).Returns(newRouteConstraint).Verifiable();
-
-            sut.Setup(context);
-
-            context.ProxyFactory.VerifyAll();
-            Assert.Same(newRouteConstraint, route.Constraints["controller"]);
-        }
-
-
         public class NewIHttpRoute : IHttpRoute
         {
             public System.Web.Http.Routing.IHttpRouteData GetRouteData(string virtualPathRoot, System.Net.Http.HttpRequestMessage request)
             { 
-                return new System.Web.Http.Routing.HttpRouteData();
+                return new System.Web.Http.Routing.HttpRouteData(this);
             }
 
             public System.Web.Http.Routing.IHttpVirtualPathData GetVirtualPath(System.Net.Http.HttpRequestMessage request, IDictionary<string, object> values)
@@ -151,7 +114,7 @@ namespace Glimpse.Test.WebApi.Inspector
           
             public string RouteTemplate {
               get {
-                throw new NotImplementedException();
+                return "TestRouteTemplate";
               }
             }
                   
@@ -163,7 +126,7 @@ namespace Glimpse.Test.WebApi.Inspector
                   
             public IDictionary<string, object> Constraints {
               get {
-                throw new NotImplementedException();
+                return new System.Web.Http.Routing.HttpRouteValueDictionary { { "Test", "Constraint" } };
               }
             }
                   
@@ -175,14 +138,14 @@ namespace Glimpse.Test.WebApi.Inspector
                   
             public System.Net.Http.HttpMessageHandler Handler {
               get {
-                throw new NotImplementedException();
+                return new System.Net.Http.HttpClientHandler();
               }
             }
         }
 
         public class NewConstructorIHttpRoute : NewIHttpRoute
         {
-            public NewConstructorIHttpRoute(string name)
+            public NewConstructorIHttpRoute()
             {
             }
         }
@@ -214,16 +177,16 @@ namespace Glimpse.Test.WebApi.Inspector
             {
             }
 
-            public NewHttpRoute(string url, System.Web.Http.Routing.HttpRouteValueDictionary defaults, System.Web.Http.Routing.HttpRouteValueDictionary constraints, System.Web.Http.Routing.HttpRouteValueDictionary dataTokens, System.Net.Http.HttpMessageHandler routeHandler)
-                : base(url, defaults, constraints, dataTokens, routeHandler)
+            public NewHttpRoute(string url, System.Web.Http.Routing.HttpRouteValueDictionary defaults, System.Web.Http.Routing.HttpRouteValueDictionary constraints, System.Web.Http.Routing.HttpRouteValueDictionary dataTokens, System.Net.Http.HttpMessageHandler messageHandler)
+                : base(url, defaults, constraints, dataTokens, messageHandler)
             {
             }
         }
 
         public class NewConstructorHttpRoute : HttpRoute
         {
-            public NewConstructorHttpRoute(string url, System.Net.Http.HttpMessageHandler routeHandler, string name)
-                : base(url, routeHandler)
+            public NewConstructorHttpRoute()
+                : base()
             {
             }
         }
