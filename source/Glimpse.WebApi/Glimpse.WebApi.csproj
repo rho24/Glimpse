@@ -82,6 +82,7 @@
     <Folder Include="Tab" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlternateType\HttpWebRoute.cs" />
     <Compile Include="AlternateType\IHttpRoute.cs" />
     <Compile Include="AlternateType\IRouteNameMixin.cs" />
     <Compile Include="AlternateType\IHttpRouteConstraint.cs" />

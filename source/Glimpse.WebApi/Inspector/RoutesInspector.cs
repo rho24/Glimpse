@@ -9,8 +9,8 @@ namespace Glimpse.WebApi.Inspector
 {
     public class RoutesInspector : IInspector
     {
-        private static readonly FieldInfo MappedRoutesField = typeof(System.Web.Http.HttpRouteCollection).GetField("_namedMap", BindingFlags.NonPublic | BindingFlags.Instance);
-         
+        private static readonly FieldInfo MappedRoutesField = typeof(System.Web.Routing.RouteCollection).GetField("_namedMap", BindingFlags.NonPublic | BindingFlags.Instance);
+        
         public void Setup(IInspectorContext context)
         {
             var logger = context.Logger;
@@ -18,7 +18,10 @@ namespace Glimpse.WebApi.Inspector
 
             using (var currentRoutes = GlobalConfiguration.Configuration.Routes)
             {
-                var mappedRoutes = (Dictionary<string, System.Web.Http.Routing.IHttpRoute>)MappedRoutesField.GetValue(currentRoutes);
+                // The WebAPI HttpRouteCollection is converted to a HostedHttpRouteCollection, which contains
+                // a private RouteCollection field. HostedHttpRouteCollection is internal, so can't declare it as a static field in RouteInspector
+                var routeCollection = currentRoutes.GetType().GetField("_routeCollection", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(currentRoutes);
+                var mappedRoutes = (Dictionary<string,  Glimpse.WebApi.AlternateType.HttpWebRoute>)MappedRoutesField.GetValue(routeCollection);
 
                 for (var i = 0; i < currentRoutes.Count; i++)
                 {
@@ -31,28 +34,28 @@ namespace Glimpse.WebApi.Inspector
                     var newObj = (System.Web.Http.Routing.IHttpRoute)null;
                     var mixins = new[] { RouteNameMixin.None() };
                     var routeName = string.Empty; 
-                    if (mappedRoutes.ContainsValue(originalObj))
-                    {
-                        var pair = mappedRoutes.First(r => r.Value == originalObj);
-                        routeName = pair.Key;
-                        mixins = new[] { new RouteNameMixin(pair.Key) };
-                    }
-                      
-                    if (alternateBaseImplementation.TryCreate(originalObj, out newObj, mixins))
-                    {
-                        if (!string.IsNullOrEmpty(routeName))
-                        {
-	                        currentRoutes.Remove(routeName);
-	                        currentRoutes.Add(routeName, newObj);
-                            mappedRoutes[routeName] = newObj;
-                        }
-
-                        logger.Info(Resources.RouteSetupReplacedRoute, originalObj.GetType());
-                    }
-                    else
-                    {
-                        logger.Info(Resources.RouteSetupNotReplacedRoute, originalObj.GetType());
-                    }
+//                    if (mappedRoutes.ContainsValue(originalObj))
+//                    {
+//                        var pair = mappedRoutes.First(r => r.Value == originalObj);
+//                        routeName = pair.Key;
+//                        mixins = new[] { new RouteNameMixin(pair.Key) };
+//                    }
+//                      
+//                    if (alternateBaseImplementation.TryCreate(originalObj, out newObj, mixins))
+//                    {
+//                        if (!string.IsNullOrEmpty(routeName))
+//                        {
+//	                        currentRoutes.Remove(routeName);
+//	                        currentRoutes.Add(routeName, newObj);
+//                            mappedRoutes[routeName] = newObj;
+//                        }
+//
+//                        logger.Info(Resources.RouteSetupReplacedRoute, originalObj.GetType());
+//                    }
+//                    else
+//                    {
+//                        logger.Info(Resources.RouteSetupNotReplacedRoute, originalObj.GetType());
+//                    }
                 }
             }
         }
