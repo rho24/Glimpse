@@ -57,17 +57,17 @@ namespace Glimpse.Test.WebApi.Inspector
         }
 
         [Theory, AutoMock]
-        public void ExtendsWebApiRoutes(System.Net.Http.HttpMessageHandler routeHandler, RoutesInspector sut, IInspectorContext context, HttpRoute newRoute)
+        public void ExtendsWebApiRoutes(System.Net.Http.HttpMessageHandler routeHandler, RoutesInspector sut, IInspectorContext context, HttpRoute newHttpRoute)
         {
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
-            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", new HttpRoute());
+            System.Web.Http.GlobalConfiguration.Configuration.Routes.Add("Test", newHttpRoute);
 
-            context.ProxyFactory.Setup(x => x.ExtendClass<HttpRoute>(It.IsAny<IEnumerable<IAlternateMethod>>(), It.IsAny<IEnumerable<object>>(), It.IsAny<object[]>())).Returns(newRoute).Verifiable();
+            context.ProxyFactory.Setup(x => x.ExtendClass<HttpRoute>(It.IsAny<IEnumerable<IAlternateMethod>>(), It.IsAny<IEnumerable<object>>(), It.IsAny<object[]>())).Returns(newHttpRoute).Verifiable();
 
             sut.Setup(context);
 
             context.ProxyFactory.VerifyAll();
-            Assert.Same(newRoute, System.Web.Http.GlobalConfiguration.Configuration.Routes[0]);
+            Assert.Same(newHttpRoute, System.Web.Http.GlobalConfiguration.Configuration.Routes[0]);
         }
 
         [Theory, AutoMock]
