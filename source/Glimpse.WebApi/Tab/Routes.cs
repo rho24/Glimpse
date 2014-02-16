@@ -167,9 +167,17 @@ namespace Glimpse.WebApi.Tab
                 routeDataItemModel.PlaceHolder = dataDefault.Key;
                 routeDataItemModel.DefaultValue = dataDefault.Value;
 
+                
                 if (routeMessage != null && routeMessage.Values != null)
                 {
-                    routeDataItemModel.ActualValue = routeMessage.Values[dataDefault.Key];
+                    if(routeMessage.Values.ContainsKey(dataDefault.Key))
+                    {
+                        routeDataItemModel.ActualValue = routeMessage.Values[dataDefault.Key];
+                    }
+                    else
+                    {
+                        routeDataItemModel.ActualValue = null;    
+                    }
                 }
 
                 routeData.Add(routeDataItemModel);

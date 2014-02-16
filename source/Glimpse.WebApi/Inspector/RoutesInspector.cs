@@ -18,9 +18,8 @@ namespace Glimpse.WebApi.Inspector
 
             using (var currentHttpRoutes = GlobalConfiguration.Configuration.Routes)
             {
-                currentHttpRoutes.Clear();
-                
                 var currentRoutes = System.Web.Routing.RouteTable.Routes;
+                currentHttpRoutes.Clear();
                 
                 using (currentRoutes.GetWriteLock())
                 {
@@ -55,10 +54,9 @@ namespace Glimpse.WebApi.Inspector
                         {
                             if (!string.IsNullOrEmpty(routeName))
                             {
-                                //currentHttpRoutes.Replace(routeName, routeName, newObj);
     	                        //currentHttpRoutes.Remove(routeName);
     	                        currentHttpRoutes.Add(routeName, newObj);
-                                //mappedRoutes[routeName] = newObj;
+                                mappedRoutes[routeName] = newObj;
                             }
     
                             logger.Info(Resources.RouteSetupReplacedRoute, originalObj.GetType());
