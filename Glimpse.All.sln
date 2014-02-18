@@ -7,7 +7,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{CCFA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A3097EAF-9D1B-416A-822E-F679D768BC55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc3.MusicStore.Sample", "source\Glimpse.Mvc3.MusicStore.Sample\Glimpse.Mvc3.MusicStore.Sample.csproj", "{32DCD27D-A84C-4250-B657-408B3620A9AC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy Support", "Legacy Support", "{44EAFB31-C422-4B52-BBCE-18A3E95713DC}"
+	ProjectSection(SolutionItems) = preProject
+		source\ReadMe.txt = source\ReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{13FEFF53-9CD2-4BF1-9128-A60F99E5532F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.AspNet", "source\Glimpse.AspNet\Glimpse.AspNet.csproj", "{FDDFC8A6-CDDF-4BC6-9F07-E76050E1EEE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core", "source\Glimpse.Core\Glimpse.Core.csproj", "{C1289CE8-3259-41D9-893E-7A4E6F772D30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc4.MusicStore.Sample", "source\Glimpse.Mvc4.MusicStore.Sample\Glimpse.Mvc4.MusicStore.Sample.csproj", "{C2C38EE9-01B7-4929-B7E9-086077D1AB58}"
 EndProject
@@ -27,18 +36,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.AspNet", "sour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Mvc", "source\Glimpse.Test.Mvc\Glimpse.Test.Mvc.csproj", "{FE12BC0C-CD22-4D24-BFC7-13ED1C428BAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc3.MusicStore.Sample", "source\Glimpse.Mvc3.MusicStore.Sample\Glimpse.Mvc3.MusicStore.Sample.csproj", "{32DCD27D-A84C-4250-B657-408B3620A9AC}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Common", "source\Glimpse.Test.Common\Glimpse.Test.Common.csproj", "{BC28BB90-8BF2-4D54-B96E-0E0181DDF432}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.WebApi", "source\Glimpse.Test.WebApi\Glimpse.Test.WebApi.csproj", "{1E18F740-26DE-4C00-BFB1-74326BDEDF17}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy Support", "Legacy Support", "{44EAFB31-C422-4B52-BBCE-18A3E95713DC}"
-	ProjectSection(SolutionItems) = preProject
-		source\ReadMe.txt = source\ReadMe.txt
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{13FEFF53-9CD2-4BF1-9128-A60F99E5532F}"
-	ProjectSection(SolutionItems) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Core.Net35", "source\Glimpse.Test.Core.Net35\Glimpse.Test.Core.Net35.csproj", "{E242E3FC-DEF4-45E2-A129-A5DC3B0B8F9B}"
 EndProject
@@ -99,10 +101,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{035297
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.AspNet", "source\Glimpse.AspNet\Glimpse.AspNet.csproj", "{FDDFC8A6-CDDF-4BC6-9F07-E76050E1EEE7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core", "source\Glimpse.Core\Glimpse.Core.csproj", "{C1289CE8-3259-41D9-893E-7A4E6F772D30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc", "source\Glimpse.Mvc\Glimpse.Mvc.csproj", "{0A68B072-7918-45AC-BB78-F05789D0BF44}"
 EndProject
