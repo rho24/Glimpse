@@ -18,10 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.AspNet", "source\Gl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core", "source\Glimpse.Core\Glimpse.Core.csproj", "{C1289CE8-3259-41D9-893E-7A4E6F772D30}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsAzure", "WindowsAzure", "{4288D838-C35F-4226-AEAD-766A19CF31CD}"
-	ProjectSection(SolutionItems) = postProject
-	EndProjectSection
-EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Glimpse.WindowsAzure.Sample", "source\Glimpse.WindowsAzure.Sample\Glimpse.WindowsAzure.Sample.ccproj", "{9872CF80-D354-4A19-A28B-B5FE62DA3DF5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.WebRole.Sample", "source\Glimpse.WindowsAzure.WebRole.Sample\Glimpse.WindowsAzure.WebRole.Sample.csproj", "{FE76DB8B-5FE3-4F25-B816-4EF2E6F20FFB}"
@@ -37,8 +33,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc3.MusicStore.Sample", "source\Glimpse.Mvc3.MusicStore.Sample\Glimpse.Mvc3.MusicStore.Sample.csproj", "{32DCD27D-A84C-4250-B657-408B3620A9AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core.Net35", "source\Glimpse.Core.Net35\Glimpse.Core.Net35.csproj", "{22E8C0B0-E32F-4598-896F-81F3A6BD9862}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.WebApi", "source\Glimpse.Test.WebApi\Glimpse.Test.WebApi.csproj", "{1E18F740-26DE-4C00-BFB1-74326BDEDF17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Core.Net35", "source\Glimpse.Test.Core.Net35\Glimpse.Test.Core.Net35.csproj", "{E242E3FC-DEF4-45E2-A129-A5DC3B0B8F9B}"
 EndProject
@@ -102,14 +96,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebForms.Net40", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebForms.Net45", "source\Glimpse.WebForms.Net45\Glimpse.WebForms.Net45.csproj", "{DD576747-CD93-43F0-8648-6CDC5CD9C555}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Net40", "source\Glimpse.WindowsAzure.Net40\Glimpse.WindowsAzure.Net40.csproj", "{C0A9A534-5DC9-4A26-952B-71D43160B597}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.ServiceBus.Net40", "source\Glimpse.WindowsAzure.ServiceBus.Net40\Glimpse.WindowsAzure.ServiceBus.Net40.csproj", "{D0A04D21-2403-4458-905E-027F6651823D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Caching.Net40", "source\Glimpse.WindowsAzure.Caching.Net40\Glimpse.WindowsAzure.Caching.Net40.csproj", "{98DDA3F0-13CC-428E-ABC0-0729C7C55F80}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Storage.Net40", "source\Glimpse.WindowsAzure.Storage.Net40\Glimpse.WindowsAzure.Storage.Net40.csproj", "{DB3BB9CB-F577-42E8-8108-DB17EA0DE113}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure", "source\Glimpse.WindowsAzure\Glimpse.WindowsAzure.csproj", "{310D2FEA-6B20-4D2E-869D-EC3B578FF552}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Caching", "source\Glimpse.WindowsAzure.Caching\Glimpse.WindowsAzure.Caching.csproj", "{C58BDD08-9093-43AC-9AEE-0DE2CF15DBEF}"
@@ -118,7 +104,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Storage", "source\Glimpse.WindowsAzure.Storage\Glimpse.WindowsAzure.Storage.csproj", "{2E11865D-5484-4C3C-9C4B-940D8FCE043A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Net40", "source\Glimpse.WindowsAzure.Net40\Glimpse.WindowsAzure.Net40.csproj", "{C0A9A534-5DC9-4A26-952B-71D43160B597}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.ServiceBus.Net40", "source\Glimpse.WindowsAzure.ServiceBus.Net40\Glimpse.WindowsAzure.ServiceBus.Net40.csproj", "{D0A04D21-2403-4458-905E-027F6651823D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Caching.Net40", "source\Glimpse.WindowsAzure.Caching.Net40\Glimpse.WindowsAzure.Caching.Net40.csproj", "{98DDA3F0-13CC-428E-ABC0-0729C7C55F80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Storage.Net40", "source\Glimpse.WindowsAzure.Storage.Net40\Glimpse.WindowsAzure.Storage.Net40.csproj", "{DB3BB9CB-F577-42E8-8108-DB17EA0DE113}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsAzure", "WindowsAzure", "{4288D838-C35F-4226-AEAD-766A19CF31CD}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebApi", "source\Glimpse.WebApi\Glimpse.WebApi.csproj", "{8C62666A-0BF2-49AA-BBA1-547B73C614AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.WebApi", "source\Glimpse.Test.WebApi\Glimpse.Test.WebApi.csproj", "{1E18F740-26DE-4C00-BFB1-74326BDEDF17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
