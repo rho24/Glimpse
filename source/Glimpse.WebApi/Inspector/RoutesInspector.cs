@@ -14,21 +14,17 @@ namespace Glimpse.WebApi.Inspector
         public void Setup(IInspectorContext context)
         {
             var logger = context.Logger;
-            var alternateBaseImplementation = new AlternateType.IHttpRoute(context.ProxyFactory, context.Logger); 
+            var alternateBaseImplementation = new AlternateType.IHttpRoute(context.ProxyFactory, context.Logger);
+
+            var alternateHttpRoutes = new Dictionary<string, System.Web.Http.Routing.IHttpRoute>();
 
             using (var currentHttpRoutes = GlobalConfiguration.Configuration.Routes)
             {
                 var currentRoutes = System.Web.Routing.RouteTable.Routes;
-                currentHttpRoutes.Clear();
                 
                 using (currentRoutes.GetWriteLock())
                 {
                     var mappedRoutes = (Dictionary<string, System.Web.Routing.RouteBase>)MappedRoutesField.GetValue(currentRoutes);
-                    
-                    // The WebAPI HttpRouteCollection is converted to a HostedHttpRouteCollection, which contains
-                    // a private RouteCollection field. HostedHttpRouteCollection is internal, so can't declare it as a static field in RouteInspector
-                    var routeCollection = currentHttpRoutes.GetType().GetField("_routeCollection", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(currentHttpRoutes);
-                    //var mappedHttpRoutes = (Dictionary<string,  Glimpse.WebApi.AlternateType.HttpWebRoute>)MappedRoutesField.GetValue(routeCollection);
     
                     for (var i = 0; i < currentRoutes.Count; i++)
                     {
@@ -48,25 +44,43 @@ namespace Glimpse.WebApi.Inspector
                             mixins = new[] { new RouteNameMixin(pair.Key) };
                         }
                         
-                        var originalObjHttpRoute = (System.Web.Http.Routing.IHttpRoute)originalObj.GetType().GetField("<HttpRoute>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(originalObj);
-
+                        System.Web.Http.Routing.IHttpRoute originalObjHttpRoute;
+                        currentHttpRoutes.TryGetValue(routeName, out originalObjHttpRoute);
+                        
                         if (alternateBaseImplementation.TryCreate(originalObjHttpRoute, out newObj, mixins))
                         {
                             if (!string.IsNullOrEmpty(routeName))
                             {
-    	                        //currentHttpRoutes.Remove(routeName);
-    	                        currentHttpRoutes.Add(routeName, newObj);
-                                mappedRoutes[routeName] = newObj;
+                                alternateHttpRoutes.Add(routeName, newObj);
+    	                        //mappedRoutes[routeName] = newObj;
                             }
     
                             logger.Info(Resources.RouteSetupReplacedRoute, originalObj.GetType());
                         }
                         else
                         {
+                            if (!string.IsNullOrEmpty(routeName))
+                            {
+                                alternateHttpRoutes.Add(routeName, originalObjHttpRoute);
+                            }
+                            
                             logger.Info(Resources.RouteSetupNotReplacedRoute, originalObj.GetType());
                         }
                     }
                 }
+                
+                // The WebAPI HttpRouteCollection is converted to a HostedHttpRouteCollection,
+                // which doesn't have a Remove() method (it throws an exception). So instead create
+                // a local copy of all the HttpRoutes, and then use the Clear() and Add() methods
+                // to update the HostedHttpRouteCollection with the proxied routes
+
+                currentHttpRoutes.Clear();
+                
+                foreach(var altHttpRoute in alternateHttpRoutes)
+                {
+                    currentHttpRoutes.Add(altHttpRoute.Key, altHttpRoute.Value);
+                }
+
             }
         }
     }

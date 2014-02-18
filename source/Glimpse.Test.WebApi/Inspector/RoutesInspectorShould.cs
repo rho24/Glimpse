@@ -39,6 +39,8 @@ namespace Glimpse.Test.WebApi.Inspector
             context.Setup(x => x.ProxyFactory).Returns(new CastleDynamicProxyFactory(context.Logger, context.MessageBroker, () => new ExecutionTimer(new Stopwatch()), () => new RuntimePolicy()));
 
             sut.Setup(context);
+            
+            Assert.Equal(5, System.Web.Http.GlobalConfiguration.Configuration.Routes.Count);
 
             // This test needs to be like this because IProxyTargetAccessor is in Moq and Glimpse
             foreach (var route in System.Web.Http.GlobalConfiguration.Configuration.Routes)

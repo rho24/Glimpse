@@ -42,7 +42,7 @@ namespace Glimpse.WebApi.Tab
 
         public override string Name
         {
-            get { return "Routes"; }
+            get { return "WebAPI Routes"; }
         }
 
         public string Key

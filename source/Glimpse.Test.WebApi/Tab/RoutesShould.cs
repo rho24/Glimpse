@@ -18,7 +18,7 @@ namespace Glimpse.Test.WebApi.Tab
         [Theory, AutoMock]
         public void ReturnName(Routes tab)
         {
-            Assert.Equal("Routes", tab.Name);
+            Assert.Equal("WebAPI Routes", tab.Name);
         }
 
         [Theory, AutoMock]

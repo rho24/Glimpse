@@ -85,6 +85,10 @@ namespace Glimpse.WebApi.AlternateType
                 {
                     newObj = ProxyFactory.WrapClass(originalObj, AllMethodsIHttpRoute, mixins);
                 }
+                else if (ProxyFactory.IsWrapInterfaceEligible<System.Web.Http.Routing.IHttpRoute>(typeof(System.Web.Http.Routing.IHttpRoute)))
+                {
+                    newObj = ProxyFactory.WrapInterface(originalObj, AllMethodsIHttpRoute, mixins);
+                }
             }
 
             return newObj != null;
