@@ -18,10 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.AspNet", "source\Gl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core", "source\Glimpse.Core\Glimpse.Core.csproj", "{C1289CE8-3259-41D9-893E-7A4E6F772D30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc4.MusicStore.Sample", "source\Glimpse.Mvc4.MusicStore.Sample\Glimpse.Mvc4.MusicStore.Sample.csproj", "{C2C38EE9-01B7-4929-B7E9-086077D1AB58}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebForms.WingTip.Sample", "source\Glimpse.WebForms.WingTip.Sample\Glimpse.WebForms.WingTip.Sample.csproj", "{214472C2-5C93-440A-8E14-BADC49CA6FE6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsAzure", "WindowsAzure", "{4288D838-C35F-4226-AEAD-766A19CF31CD}"
 	ProjectSection(SolutionItems) = postProject
 	EndProjectSection
@@ -42,8 +38,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc3.MusicStore.Sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core.Net35", "source\Glimpse.Core.Net35\Glimpse.Core.Net35.csproj", "{22E8C0B0-E32F-4598-896F-81F3A6BD9862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Common", "source\Glimpse.Test.Common\Glimpse.Test.Common.csproj", "{BC28BB90-8BF2-4D54-B96E-0E0181DDF432}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.WebApi", "source\Glimpse.Test.WebApi\Glimpse.Test.WebApi.csproj", "{1E18F740-26DE-4C00-BFB1-74326BDEDF17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Core.Net35", "source\Glimpse.Test.Core.Net35\Glimpse.Test.Core.Net35.csproj", "{E242E3FC-DEF4-45E2-A129-A5DC3B0B8F9B}"
@@ -60,6 +54,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{035297
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc2", "source\Glimpse.Mvc2\Glimpse.Mvc2.csproj", "{6B8B535F-923B-4083-A5BD-31A34F5230A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Common", "source\Glimpse.Test.Common\Glimpse.Test.Common.csproj", "{BC28BB90-8BF2-4D54-B96E-0E0181DDF432}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Ado", "source\Glimpse.Ado\Glimpse.Ado.csproj", "{4C993B73-D03A-4080-B31E-C04F23372997}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.EF", "source\Glimpse.EF\Glimpse.EF.csproj", "{1AEDC219-C2A4-422E-8DD8-A9ABAE1B4F3B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core.Net40", "source\Glimpse.Core.Net40\Glimpse.Core.Net40.csproj", "{DD93B23C-E2D7-4283-9F3F-88F87271018B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core.Net45", "source\Glimpse.Core.Net45\Glimpse.Core.Net45.csproj", "{2CB2400F-BC66-4074-B6E4-177A6F78163E}"
@@ -69,6 +69,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.AspNet.Net45", "source\Glimpse.AspNet.Net45\Glimpse.AspNet.Net45.csproj", "{DD576747-CD93-43F0-8648-6CDC5CD9C548}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc3", "source\Glimpse.Mvc3\Glimpse.Mvc3.csproj", "{585C1C27-8D37-4CB6-BD0F-464487845661}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc4.MusicStore.Sample", "source\Glimpse.Mvc4.MusicStore.Sample\Glimpse.Mvc4.MusicStore.Sample.csproj", "{C2C38EE9-01B7-4929-B7E9-086077D1AB58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc4", "source\Glimpse.Mvc4\Glimpse.Mvc4.csproj", "{D3644A2E-1A2D-42DB-9646-8EDF2855C478}"
 EndProject
@@ -88,7 +90,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.EF6.Net45", "source
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.EF43.Net40", "source\Glimpse.EF43.Net40\Glimpse.EF43.Net40.csproj", "{6F3F9D55-2BE0-47E8-83D2-0F488504CF4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebForms.WingTip.Sample", "source\Glimpse.WebForms.WingTip.Sample\Glimpse.WebForms.WingTip.Sample.csproj", "{214472C2-5C93-440A-8E14-BADC49CA6FE6}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc5", "source\Glimpse.Mvc5\Glimpse.Mvc5.csproj", "{BCDCF0D0-77CF-4589-BE46-C86FE11781E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebForms", "source\Glimpse.WebForms\Glimpse.WebForms.csproj", "{3F948157-7469-45F1-A453-B0D9095EAE51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebForms.Net35", "source\Glimpse.WebForms.Net35\Glimpse.WebForms.Net35.csproj", "{971143D1-B40E-4AF4-AD3D-D4FFAD3FE555}"
 EndProject
@@ -103,12 +109,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Caching.Net40", "source\Glimpse.WindowsAzure.Caching.Net40\Glimpse.WindowsAzure.Caching.Net40.csproj", "{98DDA3F0-13CC-428E-ABC0-0729C7C55F80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Storage.Net40", "source\Glimpse.WindowsAzure.Storage.Net40\Glimpse.WindowsAzure.Storage.Net40.csproj", "{DB3BB9CB-F577-42E8-8108-DB17EA0DE113}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Ado", "source\Glimpse.Ado\Glimpse.Ado.csproj", "{4C993B73-D03A-4080-B31E-C04F23372997}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.EF", "source\Glimpse.EF\Glimpse.EF.csproj", "{1AEDC219-C2A4-422E-8DD8-A9ABAE1B4F3B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebForms", "source\Glimpse.WebForms\Glimpse.WebForms.csproj", "{3F948157-7469-45F1-A453-B0D9095EAE51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure", "source\Glimpse.WindowsAzure\Glimpse.WindowsAzure.csproj", "{310D2FEA-6B20-4D2E-869D-EC3B578FF552}"
 EndProject
