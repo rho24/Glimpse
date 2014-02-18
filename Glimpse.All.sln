@@ -34,9 +34,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Core", "source
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.AspNet", "source\Glimpse.Test.AspNet\Glimpse.Test.AspNet.csproj", "{76714E46-AFE9-49F0-AEE8-C8A966195914}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc", "source\Glimpse.Mvc\Glimpse.Mvc.csproj", "{0A68B072-7918-45AC-BB78-F05789D0BF44}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Mvc", "source\Glimpse.Test.Mvc\Glimpse.Test.Mvc.csproj", "{FE12BC0C-CD22-4D24-BFC7-13ED1C428BAD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc3.MusicStore.Sample", "source\Glimpse.Mvc3.MusicStore.Sample\Glimpse.Mvc3.MusicStore.Sample.csproj", "{32DCD27D-A84C-4250-B657-408B3620A9AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core.Net35", "source\Glimpse.Core.Net35\Glimpse.Core.Net35.csproj", "{22E8C0B0-E32F-4598-896F-81F3A6BD9862}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Common", "source\Glimpse.Test.Common\Glimpse.Test.Common.csproj", "{BC28BB90-8BF2-4D54-B96E-0E0181DDF432}"
 EndProject
@@ -44,9 +48,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.WebApi", "sour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.Core.Net35", "source\Glimpse.Test.Core.Net35\Glimpse.Test.Core.Net35.csproj", "{E242E3FC-DEF4-45E2-A129-A5DC3B0B8F9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Core.Net35", "source\Glimpse.Core.Net35\Glimpse.Core.Net35.csproj", "{22E8C0B0-E32F-4598-896F-81F3A6BD9862}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.AspNet.Net35", "source\Glimpse.AspNet.Net35\Glimpse.AspNet.Net35.csproj", "{971143D1-B40E-4AF4-AD3D-D4FFAD3FE444}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0352975D-08B7-435E-B444-A77292D4F6E1}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc2", "source\Glimpse.Mvc2\Glimpse.Mvc2.csproj", "{6B8B535F-923B-4083-A5BD-31A34F5230A1}"
 EndProject
@@ -93,16 +103,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Caching.Net40", "source\Glimpse.WindowsAzure.Caching.Net40\Glimpse.WindowsAzure.Caching.Net40.csproj", "{98DDA3F0-13CC-428E-ABC0-0729C7C55F80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WindowsAzure.Storage.Net40", "source\Glimpse.WindowsAzure.Storage.Net40\Glimpse.WindowsAzure.Storage.Net40.csproj", "{DB3BB9CB-F577-42E8-8108-DB17EA0DE113}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0352975D-08B7-435E-B444-A77292D4F6E1}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Mvc", "source\Glimpse.Mvc\Glimpse.Mvc.csproj", "{0A68B072-7918-45AC-BB78-F05789D0BF44}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Ado", "source\Glimpse.Ado\Glimpse.Ado.csproj", "{4C993B73-D03A-4080-B31E-C04F23372997}"
 EndProject
