@@ -47,7 +47,7 @@ namespace Glimpse.WebApi.Tab
 
         public string Key
         {
-            get { return "glimpse_routes"; }
+            get { return "glimpse_webapiroutes"; }
         }
 
         public string DocumentationUri

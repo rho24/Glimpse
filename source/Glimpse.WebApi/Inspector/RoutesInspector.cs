@@ -74,11 +74,12 @@ namespace Glimpse.WebApi.Inspector
                 // a local copy of all the HttpRoutes, and then use the Clear() and Add() methods
                 // to update the HostedHttpRouteCollection with the proxied routes
 
-                currentHttpRoutes.Clear();
+                //HACK: Need to replace the routes correctly here
+                //currentHttpRoutes.Clear();
                 
                 foreach(var altHttpRoute in alternateHttpRoutes)
                 {
-                    currentHttpRoutes.Add(altHttpRoute.Key, altHttpRoute.Value);
+                    currentHttpRoutes.Add("Proxied" + altHttpRoute.Key, altHttpRoute.Value);
                 }
 
             }
