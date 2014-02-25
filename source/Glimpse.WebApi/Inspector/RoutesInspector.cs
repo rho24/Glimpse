@@ -16,6 +16,7 @@ namespace Glimpse.WebApi.Inspector
             var logger = context.Logger;
             var alternateBaseImplementation = new AlternateType.IHttpRoute(context.ProxyFactory, context.Logger);
 
+            var routes = new List<System.Web.Routing.RouteBase>();
             var alternateHttpRoutes = new Dictionary<string, System.Web.Http.Routing.IHttpRoute>();
 
             using (var currentHttpRoutes = GlobalConfiguration.Configuration.Routes)
@@ -31,6 +32,7 @@ namespace Glimpse.WebApi.Inspector
                         var originalObj = currentRoutes[i];
                         if (!(originalObj.GetType().ToString() == "System.Web.Http.WebHost.Routing.HttpWebRoute"))
                         {
+                            routes.Add(originalObj);
                             continue;
                         }
     
@@ -52,7 +54,7 @@ namespace Glimpse.WebApi.Inspector
                             if (!string.IsNullOrEmpty(routeName))
                             {
                                 alternateHttpRoutes.Add(routeName, newObj);
-    	                        //mappedRoutes[routeName] = newObj;
+                                //mappedRoutes[routeName] = newObj;
                             }
     
                             logger.Info(Resources.RouteSetupReplacedRoute, originalObj.GetType());
@@ -74,12 +76,16 @@ namespace Glimpse.WebApi.Inspector
                 // a local copy of all the HttpRoutes, and then use the Clear() and Add() methods
                 // to update the HostedHttpRouteCollection with the proxied routes
 
-                //HACK: Need to replace the routes correctly here
-                //currentHttpRoutes.Clear();
+                currentHttpRoutes.Clear();
                 
                 foreach(var altHttpRoute in alternateHttpRoutes)
                 {
-                    currentHttpRoutes.Add("Proxied" + altHttpRoute.Key, altHttpRoute.Value);
+                    currentHttpRoutes.Add(altHttpRoute.Key, altHttpRoute.Value);
+                }
+
+                foreach (var route in routes)
+                {
+                    currentRoutes.Add(route);
                 }
 
             }
