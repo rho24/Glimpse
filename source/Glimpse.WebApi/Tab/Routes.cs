@@ -13,7 +13,7 @@ using WebApiRouteValueDictionary = System.Collections.Generic.IDictionary<string
 
 namespace Glimpse.WebApi.Tab
 {
-    public class Routes : WebApiTab, IDocumentation, ITabSetup, ITabLayout, IKey
+    public class Routes : WebApiTab, ITabLayout, IDocumentation, ITabSetup//, IKey
     {
         private static readonly object Layout = TabLayout.Create()
                 .Row(r =>
@@ -71,7 +71,7 @@ namespace Glimpse.WebApi.Tab
             var routeMessages = ProcessMessages(context.GetMessages<IHttpRoute.GetRouteData.Message>());
             var constraintMessages = ProcessMessages(context.GetMessages<IHttpRoute.ProcessConstraint.Message>());
 
-             var result = new List<RouteModel>();
+            var result = new List<RouteModel>();
 
             using (var routes = GlobalConfiguration.Configuration.Routes)
             {
@@ -130,7 +130,7 @@ namespace Glimpse.WebApi.Tab
                 routeModel.IsMatch = routeMessage.IsMatch;
             }
 
-            var route = IHttpRoute as WebApiRoute;
+            var route = IHttpRoute as WebApiIHttpRoute;
             if (route != null)
             {
                 routeModel.Area = (route.DataTokens != null && route.DataTokens.ContainsKey("area")) ? route.DataTokens["area"].ToString() : null;
@@ -186,7 +186,7 @@ namespace Glimpse.WebApi.Tab
             return routeData;
         }
 
-        private IEnumerable<RouteConstraintModel> ProcessConstraints(ITabContext context, WebApiRoute route, Dictionary<int, Dictionary<int, List<IHttpRoute.ProcessConstraint.Message>>> constraintMessages)
+        private IEnumerable<RouteConstraintModel> ProcessConstraints(ITabContext context, WebApiIHttpRoute route, Dictionary<int, Dictionary<int, List<IHttpRoute.ProcessConstraint.Message>>> constraintMessages)
         {
             if (route.Constraints == null || route.Constraints.Count == 0)
             {

@@ -81,6 +81,14 @@ namespace Glimpse.WebApi.Inspector
                 foreach(var altHttpRoute in alternateHttpRoutes)
                 {
                     currentHttpRoutes.Add(altHttpRoute.Key, altHttpRoute.Value);
+
+                    //currentHttpRoutes.MapHttpRoute(
+                    //        name: altHttpRoute.Key,
+                    //        routeTemplate: altHttpRoute.Value.RouteTemplate,
+                    //        //constraints:altHttpRoute.Value.Constraints,
+                    //        //handler:altHttpRoute.Value.Handler,
+                    //        defaults: altHttpRoute.Value.Defaults
+                    //);
                 }
 
                 foreach (var route in routes)

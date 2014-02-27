@@ -144,14 +144,14 @@ namespace Glimpse.WebApi.AlternateType
                 var mixin = (IRouteNameMixin)context.Proxy;
 
                 context.MessageBroker.Publish(
-                    new Message(context.Proxy.GetHashCode(), (System.Web.Http.Routing.HttpRouteData)context.ReturnValue, mixin.Name)
+                    new Message(context.Proxy.GetHashCode(), (System.Web.Http.Routing.IHttpRouteData)context.ReturnValue, mixin.Name)
                     .AsTimedMessage(timerResult)
                     .AsSourceMessage(context.InvocationTarget.GetType(), context.MethodInvocationTarget));
             }
 
             public class Message : MessageBase, ITimedMessage, ISourceMessage
             {
-                public Message(int routeHashCode, System.Web.Http.Routing.HttpRouteData routeData, string routeName)
+                public Message(int routeHashCode, System.Web.Http.Routing.IHttpRouteData routeData, string routeName)
                 {
                     IsMatch = routeData != null;
                     RouteHashCode = routeHashCode;
