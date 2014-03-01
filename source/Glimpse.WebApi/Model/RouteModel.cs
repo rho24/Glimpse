@@ -15,7 +15,7 @@ namespace Glimpse.WebApi.Model
 
         public IEnumerable<RouteConstraintModel> Constraints { get; set; }
 
-        public IDictionary<string, object> DataTokens { get; set; } 
+        public IDictionary<string, object> DataTokens { get; set; }
 
         public TimeSpan Duration { get; set; }
 

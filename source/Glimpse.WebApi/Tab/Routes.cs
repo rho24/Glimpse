@@ -7,13 +7,13 @@ using Glimpse.WebApi.Model;
 using Glimpse.Core.Extensibility;
 using Glimpse.Core.Extensions;
 using Glimpse.Core.Tab.Assist;
-using WebApiRoute = System.Web.Http.Routing.HttpRoute;
+using WebApiHttpRoute = System.Web.Http.Routing.HttpRoute;
 using WebApiIHttpRoute = System.Web.Http.Routing.IHttpRoute;
 using WebApiRouteValueDictionary = System.Collections.Generic.IDictionary<string, object>;
 
 namespace Glimpse.WebApi.Tab
 {
-    public class Routes : WebApiTab, ITabLayout, IDocumentation, ITabSetup//, IKey
+    public class Routes : WebApiTab, IDocumentation, ITabSetup, ITabLayout //, IKey
     {
         private static readonly object Layout = TabLayout.Create()
                 .Row(r =>
@@ -21,9 +21,9 @@ namespace Glimpse.WebApi.Tab
                     r.Cell(0).WidthInPixels(100);
                     r.Cell(1).AsKey();
                     r.Cell(2);
-                    r.Cell(3).WidthInPercent(20).SetLayout(TabLayout.Create().Row(x => 
+                    r.Cell(3).WidthInPercent(20).SetLayout(TabLayout.Create().Row(x =>
                         {
-                            x.Cell("{{0}} ({{1}})").WidthInPercent(45); 
+                            x.Cell("{{0}} ({{1}})").WidthInPercent(45);
                             x.Cell(2);
                         }));
                     r.Cell(4).WidthInPercent(35).SetLayout(TabLayout.Create().Row(x =>
@@ -35,7 +35,7 @@ namespace Glimpse.WebApi.Tab
                     r.Cell(5).WidthInPercent(15).SetLayout(TabLayout.Create().Row(x =>
                         {
                             x.Cell(0).WidthInPercent(45);
-                            x.Cell(1).WidthInPercent(55); 
+                            x.Cell(1).WidthInPercent(55);
                         }));
                     r.Cell(6).WidthInPixels(100).Suffix(" ms").Class("mono").AlignRight();
                 }).Build();
@@ -223,5 +223,6 @@ namespace Glimpse.WebApi.Tab
         {
             return dataTokens != null && dataTokens.Count > 0 ? dataTokens : null;
         }
+
     }
 }
