@@ -94,6 +94,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="SerializationConverter\ListOfRouteModelConverter.cs" />
     <Compile Include="Tab\Demo.cs" />
     <Compile Include="Tab\Routes.cs" />
   </ItemGroup>

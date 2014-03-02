@@ -41,103 +41,103 @@ namespace Glimpse.WebApi.Tab
         }
     }
 
-    //public class DependancyResolver : WebApiTab
-    //{
-    //    public override object GetData(ITabContext context)
-    //    {
-    //        var WebApiConfig = GlobalConfiguration.Configuration;
+    public class DependancyResolver : WebApiTab
+    {
+        public override object GetData(ITabContext context)
+        {
+            var WebApiConfig = GlobalConfiguration.Configuration;
 
-    //        return WebApiConfig.DependencyResolver;
-    //    }
+            return WebApiConfig.DependencyResolver;
+        }
 
-    //    public override string Name
-    //    {
-    //        get { return "WebAPI Dependancy Resolver"; }
-    //    }
-    //}
+        public override string Name
+        {
+            get { return "WebAPI Dependancy Resolver"; }
+        }
+    }
 
-    //public class Initializer : WebApiTab
-    //{
-    //    public override object GetData(ITabContext context)
-    //    {
-    //        var WebApiConfig = GlobalConfiguration.Configuration;
+    public class Initializer : WebApiTab
+    {
+        public override object GetData(ITabContext context)
+        {
+            var WebApiConfig = GlobalConfiguration.Configuration;
 
-    //        return WebApiConfig.Initializer;
-    //    }
+            return WebApiConfig.Initializer;
+        }
 
-    //    public override string Name
-    //    {
-    //        get { return "WebAPI Initializer"; }
-    //    }
-    //}
+        public override string Name
+        {
+            get { return "WebAPI Initializer"; }
+        }
+    }
 
-    //public class MessageHandlers : WebApiTab
-    //{
-    //    public override object GetData(ITabContext context)
-    //    {
-    //        var WebApiConfig = GlobalConfiguration.Configuration;
+    public class MessageHandlers : WebApiTab
+    {
+        public override object GetData(ITabContext context)
+        {
+            var WebApiConfig = GlobalConfiguration.Configuration;
 
-    //        return WebApiConfig.MessageHandlers;
-    //    }
+            return WebApiConfig.MessageHandlers;
+        }
 
-    //    public override string Name
-    //    {
-    //        get { return "WebAPI MessageHandlers"; }
-    //    }
-    //}
+        public override string Name
+        {
+            get { return "WebAPI MessageHandlers"; }
+        }
+    }
 
-    //public class ParameterBindingRules : WebApiTab
-    //{
-    //    public override object GetData(ITabContext context)
-    //    {
-    //        var WebApiConfig = GlobalConfiguration.Configuration;
+    public class ParameterBindingRules : WebApiTab
+    {
+        public override object GetData(ITabContext context)
+        {
+            var WebApiConfig = GlobalConfiguration.Configuration;
 
-    //        return WebApiConfig.ParameterBindingRules;
-    //    }
+            return WebApiConfig.ParameterBindingRules;
+        }
 
-    //    public override string Name
-    //    {
-    //        get { return "WebAPI ParameterBindingRules"; }
-    //    }
-    //}
+        public override string Name
+        {
+            get { return "WebAPI ParameterBindingRules"; }
+        }
+    }
 
-    //public class Properties : WebApiTab
-    //{
-    //    public override object GetData(ITabContext context)
-    //    {
-    //        var WebApiConfig = GlobalConfiguration.Configuration;
+    public class Properties : WebApiTab
+    {
+        public override object GetData(ITabContext context)
+        {
+            var WebApiConfig = GlobalConfiguration.Configuration;
 
-    //        return WebApiConfig.Properties;
-    //    }
+            return WebApiConfig.Properties;
+        }
 
-    //    public override string Name
-    //    {
-    //        get { return "WebAPI Properties"; }
-    //    }
-    //}
+        public override string Name
+        {
+            get { return "WebAPI Properties"; }
+        }
+    }
 
-    //public class Filters : WebApiTab
-    //{
-    //    public override object GetData(ITabContext context)
-    //    {
-    //        var WebApiConfig = GlobalConfiguration.Configuration;
+    public class Filters : WebApiTab
+    {
+        public override object GetData(ITabContext context)
+        {
+            var WebApiConfig = GlobalConfiguration.Configuration;
 
-    //        var result = new List<KeyValuePair<string, string>>();
+            var result = new List<KeyValuePair<string, string>>();
 
-    //        // Filters
-    //        result.AddRange(WebApiConfig.Filters.Select(f => new KeyValuePair<string, string>("Filter", f.GetType().ToString())));
-    //        result.AddRange(WebApiConfig.Filters.Select(f => new KeyValuePair<string, string>("Filter Instance", f.Instance.GetType().ToString())));
-    //        result.AddRange(WebApiConfig.Filters.Select(f => new KeyValuePair<string, string>("Filter Instance Allow Multiple", f.Instance.AllowMultiple.ToString())));
+            // Filters
+            result.AddRange(WebApiConfig.Filters.Select(f => new KeyValuePair<string, string>("Filter", f.GetType().ToString())));
+            result.AddRange(WebApiConfig.Filters.Select(f => new KeyValuePair<string, string>("Filter Instance", f.Instance.GetType().ToString())));
+            result.AddRange(WebApiConfig.Filters.Select(f => new KeyValuePair<string, string>("Filter Instance Allow Multiple", f.Instance.AllowMultiple.ToString())));
 
-    //        //return System.Web.Mvc.GlobalFilters.Filters;
-    //        return result;
-    //    }
+            //return System.Web.Mvc.GlobalFilters.Filters;
+            return result;
+        }
 
-    //    public override string Name
-    //    {
-    //        get { return "WebAPI Filters"; }
-    //    }
-    //}
+        public override string Name
+        {
+            get { return "WebAPI Filters"; }
+        }
+    }
 
     public class Formatters : WebApiTab
     {
@@ -164,47 +164,47 @@ namespace Glimpse.WebApi.Tab
 
 
 
-    ////public class Services : WebApiTab
-    ////{
-    ////    public override object GetData(ITabContext context)
-    ////    {
-    ////        var WebApiConfig = GlobalConfiguration.Configuration;
-
-    ////        return WebApiConfig.Services;
-    ////    }
-
-    ////    public override string Name
-    ////    {
-    ////        get { return "WebAPI Services"; }
-    ////    }
-    ////}
-
-    //public class DefaultHandler : WebApiTab
+    //public class Services : WebApiTab
     //{
     //    public override object GetData(ITabContext context)
     //    {
-    //        var WebApiConfig = GlobalConfiguration.DefaultHandler;
+    //        var WebApiConfig = GlobalConfiguration.Configuration;
 
-    //        return WebApiConfig;
+    //        return WebApiConfig.Services;
     //    }
 
     //    public override string Name
     //    {
-    //        get { return "WebAPI DefaultHandler"; }
+    //        get { return "WebAPI Services"; }
     //    }
     //}
-    //public class DefaultServer : WebApiTab
-    //{
-    //    public override object GetData(ITabContext context)
-    //    {
-    //        var WebApiConfig = GlobalConfiguration.DefaultServer;
 
-    //        return WebApiConfig;
-    //    }
+    public class DefaultHandler : WebApiTab
+    {
+        public override object GetData(ITabContext context)
+        {
+            var WebApiConfig = GlobalConfiguration.DefaultHandler;
 
-    //    public override string Name
-    //    {
-    //        get { return "WebAPI DefaultServer"; }
-    //    }
-    //}
+            return WebApiConfig;
+        }
+
+        public override string Name
+        {
+            get { return "WebAPI DefaultHandler"; }
+        }
+    }
+    public class DefaultServer : WebApiTab
+    {
+        public override object GetData(ITabContext context)
+        {
+            var WebApiConfig = GlobalConfiguration.DefaultServer;
+
+            return WebApiConfig;
+        }
+
+        public override string Name
+        {
+            get { return "WebAPI DefaultServer"; }
+        }
+    }
 }
