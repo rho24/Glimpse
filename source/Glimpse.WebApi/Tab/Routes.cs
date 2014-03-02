@@ -13,7 +13,7 @@ using WebApiRouteValueDictionary = System.Collections.Generic.IDictionary<string
 
 namespace Glimpse.WebApi.Tab
 {
-    public class Routes : WebApiTab, IDocumentation, ITabSetup, ITabLayout //, IKey
+    public class Routes : WebApiTab, IDocumentation, ITabSetup, ITabLayout, IKey
     {
         private static readonly object Layout = TabLayout.Create()
                 .Row(r =>
