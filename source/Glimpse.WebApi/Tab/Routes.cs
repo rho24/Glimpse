@@ -10,6 +10,7 @@ using Glimpse.Core.Tab.Assist;
 using WebApiHttpRoute = System.Web.Http.Routing.HttpRoute;
 using WebApiIHttpRoute = System.Web.Http.Routing.IHttpRoute;
 using WebApiRouteValueDictionary = System.Collections.Generic.IDictionary<string, object>;
+using System.Reflection;
 
 namespace Glimpse.WebApi.Tab
 {
@@ -47,7 +48,7 @@ namespace Glimpse.WebApi.Tab
 
         public string Key
         {
-            get { return "glimpse_webapiroutes"; }
+            get { return "glimpse_webapi_routes"; }
         }
 
         public string DocumentationUri
@@ -79,9 +80,25 @@ namespace Glimpse.WebApi.Tab
                 {
                     if ((typeof(System.Web.Http.Routing.IHttpRoute)).IsAssignableFrom(IHttpRoute.GetType()))
                     {
-                        var routeModel = GetRouteModelForRoute(context, IHttpRoute, routeMessages, constraintMessages);
-                        
-                        result.Add(routeModel);
+                        if (IHttpRoute.GetType().ToString() == "System.Web.Http.Routing.RouteCollectionRoute")
+                        {
+                            // This catches any routing that has been defined using Attribute Based Routing
+                            // System.Web.Http.Routing.RouteCollectionRoute is a collection of HttpRoutes
+
+                            var subRoutes = IHttpRoute.GetType().GetField("_subRoutes", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(IHttpRoute);
+                            var _routes = (IList<System.Web.Http.Routing.IHttpRoute>)subRoutes.GetType().GetField("_routes", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(subRoutes);
+
+                            for (var i = 0; i < _routes.Count; i++)
+                            {
+                                var routeModel = GetRouteModelForRoute(context, _routes[i], routeMessages, constraintMessages);
+                                result.Add(routeModel);
+                            }
+                        }
+                        else
+                        {
+                            var routeModel = GetRouteModelForRoute(context, IHttpRoute, routeMessages, constraintMessages);
+                            result.Add(routeModel);
+                        }
                     }
                 }
             }
@@ -221,7 +238,31 @@ namespace Glimpse.WebApi.Tab
 
         private IDictionary<string, object> ProcessDataTokens(IDictionary<string, object> dataTokens)
         {
-            return dataTokens != null && dataTokens.Count > 0 ? dataTokens : null;
+            if (dataTokens == null)
+            {
+                return null;
+            }
+
+            var simpleDataTokens = dataTokens.Where(dt => dt.Key != "actions").ToDictionary(dt => dt.Key, dt => dt.Value);
+
+            var actions = dataTokens.SingleOrDefault(dt => dt.Key == "actions");
+
+            if (actions.Value != null)
+            {
+                var actionsValue = (actions.Value as System.Web.Http.Controllers.HttpActionDescriptor[]).Select(had => new RouteActionDataTokenModel
+                {
+                    ActionName = had.ActionName,
+                    ControllerName = had.ControllerDescriptor.ControllerName,
+                    SupportedHttpMethods = had.SupportedHttpMethods.Select(s => s.Method),
+                    Properties = had.Properties,
+                    ResultConvertor = had.ResultConverter,
+                    ReturnType = had.ReturnType.Name
+                });
+
+                simpleDataTokens.Add(actions.Key, actionsValue);
+            }
+
+            return simpleDataTokens != null && simpleDataTokens.Count > 0 ? simpleDataTokens : null;
         }
 
     }

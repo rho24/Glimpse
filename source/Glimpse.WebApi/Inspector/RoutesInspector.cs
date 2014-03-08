@@ -10,8 +10,8 @@ namespace Glimpse.WebApi.Inspector
     public class RoutesInspector : IInspector
     {
         private static readonly FieldInfo MappedRoutesField = typeof(System.Web.Routing.RouteCollection).GetField("_namedMap", BindingFlags.NonPublic | BindingFlags.Instance);
-        private List<System.Web.Routing.RouteBase> routes = new List<System.Web.Routing.RouteBase>();
-        private new Dictionary<string, System.Web.Http.Routing.IHttpRoute> alternateHttpRoutes = new Dictionary<string, System.Web.Http.Routing.IHttpRoute>();
+        private List<System.Web.Routing.RouteBase> oldRoutes = new List<System.Web.Routing.RouteBase>();
+        private Dictionary<string, System.Web.Http.Routing.IHttpRoute> alternateHttpRoutes = new Dictionary<string, System.Web.Http.Routing.IHttpRoute>();
         
         public void Setup(IInspectorContext context)
         {
@@ -31,7 +31,7 @@ namespace Glimpse.WebApi.Inspector
                         var originalObj = currentRoutes[i];
                         if (originalObj.GetType().ToString() != "System.Web.Http.WebHost.Routing.HttpWebRoute")
                         {
-                            routes.Add(originalObj);
+                            oldRoutes.Add(originalObj);
                             continue;
                         }
     
@@ -51,18 +51,28 @@ namespace Glimpse.WebApi.Inspector
                         {
                             // This catches any routing that has been defined using Attribute Based Routing
                             // System.Web.Http.Routing.RouteCollectionRoute is a collection of HttpRoutes
-                            // The code below works, but makes the WebAPI VERY slow to respond
-                            // Ideally, these would be converted to AlternateTypes and then re-added as a System.Web.Http.Routing.RouteCollectionRoute
 
-                            // HACK: Temp hack so that attribute routes don't get removed
+                            var subRoutes = originalObjHttpRoute.GetType().GetField("_subRoutes", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(originalObjHttpRoute);
+                            var routes = (IList<System.Web.Http.Routing.IHttpRoute>)subRoutes.GetType().GetField("_routes", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(subRoutes);
+
+                            for (var j = 0; j < routes.Count; j++)
+                            {
+                                var route = routes[j];
+                                var newObj = (System.Web.Http.Routing.IHttpRoute)null;
+
+                                if (alternateBaseImplementation.TryCreate(route, out newObj, mixins))
+                                {
+                                    routes[j] = newObj;
+                                    logger.Info(Resources.RouteSetupReplacedRoute, originalObj.GetType());
+                                }
+                                else
+                                {
+                                    logger.Info(Resources.RouteSetupNotReplacedRoute, originalObj.GetType());
+                                }
+                                
+                            }
+
                             alternateHttpRoutes.Add(routeName, originalObjHttpRoute);
-
-                            //int attributeRouteCount = 0;
-                            //foreach (System.Web.Http.Routing.IHttpRoute httpRoute in originalObjHttpRoute as IReadOnlyCollection<System.Web.Http.Routing.IHttpRoute>)
-                            //{
-                            //    var attributeRouteName = string.Format("{0}-{1}", routeName, attributeRouteCount++);
-                            //    CreateAlternateType(originalObj, httpRoute, logger, alternateBaseImplementation, mixins, attributeRouteName);
-                            //}
                         }
                         else
                         {
@@ -87,7 +97,7 @@ namespace Glimpse.WebApi.Inspector
                 // clears the RouteCollection, which might also contain MVC routes etc, so we need
                 // to re-add them too
 
-                foreach (var route in routes)
+                foreach (var route in oldRoutes)
                 {
                     currentRoutes.Add(route);
                 }

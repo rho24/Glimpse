@@ -71,6 +71,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.1\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glimpse.Core\Glimpse.Core.csproj">
@@ -79,23 +84,46 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlternateType\ActionFilter.cs" />
     <Compile Include="AlternateType\IHttpRoute.cs" />
     <Compile Include="AlternateType\IRouteNameMixin.cs" />
     <Compile Include="AlternateType\IHttpRouteConstraint.cs" />
     <Compile Include="AlternateType\IHttpRouteConstraintRegex.cs" />
     <Compile Include="AlternateType\RouteNameMixin.cs" />
     <Compile Include="Extensibility\WebApiTab.cs" />
+    <Compile Include="Inspector\ExecutionInspector.cs" />
     <Compile Include="Inspector\RoutesInspector.cs" />
+    <Compile Include="Message\FilterBounds.cs" />
+    <Compile Include="Message\FilterCategory.cs" />
+    <Compile Include="Message\IActionMessage.cs" />
+    <Compile Include="Message\IBoundedFilterMessage.cs" />
+    <Compile Include="Message\ICanceledFilterMessage.cs" />
+    <Compile Include="Message\IChildActionMessage.cs" />
+    <Compile Include="Message\IExceptionFilterMessage.cs" />
+    <Compile Include="Message\IExecutionMessage.cs" />
+    <Compile Include="Message\IFilterMessage.cs" />
+    <Compile Include="Message\IInvokeActionResultMessage.cs" />
+    <Compile Include="Message\MvcTimelineCategory.cs" />
+    <Compile Include="Message\MvcTimelineExtension.cs" />
     <Compile Include="Message\ProcessConstraintMessage.cs" />
+    <Compile Include="Model\FilterModel.cs" />
+    <Compile Include="Model\ExecutionModel.cs" />
+    <Compile Include="Model\RouteActionDataTokenModel.cs" />
+    <Compile Include="Model\ConfigurationModel.cs" />
+    <Compile Include="Model\FormatterModel.cs" />
     <Compile Include="Model\RouteConstraintModel.cs" />
     <Compile Include="Model\RouteDataItemModel.cs" />
     <Compile Include="Model\RouteModel.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SerializationConverter\ListOfExecutionModelConverter.cs" />
     <Compile Include="SerializationConverter\ListOfRouteModelConverter.cs" />
+    <Compile Include="Tab\Configuration.cs" />
     <Compile Include="Tab\Demo.cs" />
+    <Compile Include="Tab\Execution.cs" />
     <Compile Include="Tab\Routes.cs" />
   </ItemGroup>
   <ItemGroup>
