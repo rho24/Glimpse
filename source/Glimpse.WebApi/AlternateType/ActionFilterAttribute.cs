@@ -10,11 +10,11 @@ using Glimpse.WebApi.Message;
 
 namespace Glimpse.WebApi.AlternateType
 {
-    public class ActionFilter : AlternateType<IActionFilter>
+    public class ActionFilterAttribute : AlternateType<System.Web.Http.Filters.ActionFilterAttribute>
     {
         private IEnumerable<IAlternateMethod> allMethods;
 
-        public ActionFilter(IProxyFactory proxyFactory)
+        public ActionFilterAttribute(IProxyFactory proxyFactory)
             : base(proxyFactory)
         {
         }
@@ -34,7 +34,7 @@ namespace Glimpse.WebApi.AlternateType
         public class OnActionExecuting : AlternateMethod
         {
             public OnActionExecuting()
-                : base(typeof(ActionFilterAttribute), "OnActionExecuting")
+                : base(typeof(System.Web.Http.Filters.ActionFilterAttribute), "OnActionExecuting")
             {
             }
 
@@ -43,9 +43,8 @@ namespace Glimpse.WebApi.AlternateType
                 var actionContext = (HttpActionContext)context.Arguments[0];
                 var message = new Message()
                     .AsTimedMessage(timerResult)
-                    .AsSourceMessage(context.InvocationTarget.GetType(), context.MethodInvocationTarget)
+                    .AsSourceMessage(actionContext.ControllerContext.Controller.GetType(), context.MethodInvocationTarget)
                     .AsActionMessage(actionContext.ControllerContext)
-                    //.AsChildActionMessage(actionContext.ControllerContext)
                     .AsFilterMessage(FilterCategory.Action, actionContext.GetTypeOrNull())
                     .AsBoundedFilterMessage(FilterBounds.Executing)
                     .AsMvcTimelineMessage(MvcTimelineCategory.Filter);
@@ -88,7 +87,7 @@ namespace Glimpse.WebApi.AlternateType
         public class OnActionExecuted : AlternateMethod
         {
             public OnActionExecuted()
-                : base(typeof(ActionFilterAttribute), "OnActionExecuted")
+                : base(typeof(System.Web.Http.Filters.ActionFilterAttribute), "OnActionExecuted")
             {
             }
 
@@ -97,9 +96,8 @@ namespace Glimpse.WebApi.AlternateType
                 var resultContext = (HttpActionExecutedContext)context.Arguments[0];
                 var message = new Message()
                     .AsTimedMessage(timerResult)
-                    .AsSourceMessage(context.InvocationTarget.GetType(), context.MethodInvocationTarget)
+                    .AsSourceMessage(resultContext.ActionContext.ControllerContext.Controller.GetType(), context.MethodInvocationTarget)
                     .AsActionMessage(resultContext.ActionContext.ControllerContext)
-                    //.AsChildActionMessage(resultContext.ActionContext.ControllerContext)
                     .AsFilterMessage(FilterCategory.Action, resultContext.GetTypeOrNull())
                     .AsBoundedFilterMessage(FilterBounds.Executed)
                     //.AsCanceledFilterMessage(resultContext.Canceled)

@@ -9,6 +9,7 @@ using Glimpse.WebApi.Model;
 using System.Web.Http;
 using System.Reflection;
 using System.Web.Http.Filters;
+using System.Collections.Concurrent;
 
 namespace Glimpse.WebApi.Tab
 {
@@ -186,7 +187,6 @@ namespace Glimpse.WebApi.Tab
     //        result.Add(new KeyValuePair<string, string>("Json Formatter", WebApiConfig.Formatters.JsonFormatter.GetType().ToString()));
     //        result.Add(new KeyValuePair<string, string>("Xml Formatter", WebApiConfig.Formatters.XmlFormatter.GetType().ToString()));
 
-
     //        return WebApiConfig.Formatters;
     //    }
 
@@ -196,23 +196,28 @@ namespace Glimpse.WebApi.Tab
     //    }
     //}
 
-    public class Services : WebApiTab
-    {
-        public override object GetData(ITabContext context)
-        {
-            var WebApiConfig = GlobalConfiguration.Configuration;
+    //public class Services : WebApiTab
+    //{
+    //    public override object GetData(ITabContext context)
+    //    {
+    //        var WebApiConfig = GlobalConfiguration.Configuration;
 
-            var allSingleServices = WebApiConfig.Services.GetType()
-            .GetField("_cacheSingle", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(WebApiConfig.Services);
+    //        var allSingleServices = WebApiConfig.Services.GetType()
+    //                                .GetField("_cacheSingle", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(WebApiConfig.Services);
 
-            return allSingleServices;
-        }
+    //        var listofServices = (allSingleServices as ConcurrentDictionary<Type, object>)
+    //                                .Where(x => x.Value != null)
+    //                                .OrderBy(x => x.Key.FullName)
+    //                                .Select(x => new ServiceModel { Name = x.Value.GetType().FullName, Type = x.Key.FullName });
 
-        public override string Name
-        {
-            get { return "WebAPI Services"; }
-        }
-    }
+    //        return listofServices;
+    //    }
+
+    //    public override string Name
+    //    {
+    //        get { return "WebAPI Services"; }
+    //    }
+    //}
 
     //public class DefaultHandler : WebApiTab
     //{

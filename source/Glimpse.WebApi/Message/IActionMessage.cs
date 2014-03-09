@@ -41,28 +41,10 @@ namespace Glimpse.WebApi.Message
         public static T AsActionMessage<T>(this T message, ApiController controller)
             where T : IActionMessage
         {
-            //message.ControllerName = GetValueProviderEntry(controller, "controller");
-            //message.ActionName = GetValueProviderEntry(controller, "action"); 
-
             message.ControllerName = controller.ControllerContext.ControllerDescriptor.ControllerName;
             message.ActionName = controller.ActionContext.ActionDescriptor.ActionName;
 
             return message;
         }
-
-        //private static string GetValueProviderEntry(ControllerBase controller, string key)
-        //{
-        //    var result = string.Empty;
-        //    if (controller != null && controller.ValueProvider != null)
-        //    {
-        //        var resultObject = controller.ValueProvider.GetValue(key);
-        //        if (resultObject != null)
-        //        {
-        //            result = resultObject.RawValue.ToStringOrDefault();
-        //        }
-        //    }
-
-        //    return result;
-        //}
     }
 }

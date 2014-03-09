@@ -76,12 +76,6 @@ namespace Glimpse.WebApi.Message
                 details.Add("ResultType", filterMessage.ResultType);
             }
 
-            var childActionMessage = message as IChildActionMessage;
-            if (childActionMessage != null)
-            {
-                details.Add("IsChildAction", childActionMessage.IsChildAction);
-            }
-
             var sourceMessage = message as ISourceMessage;
             if (sourceMessage != null)
             {

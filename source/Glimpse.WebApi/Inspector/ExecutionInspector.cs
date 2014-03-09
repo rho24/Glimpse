@@ -1,12 +1,5 @@
-﻿using System.Diagnostics;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+﻿using System.Web.Http;
 using Glimpse.Core.Extensibility;
-using Glimpse.WebApi.AlternateType;
 
 namespace Glimpse.WebApi.Inspector
 {
@@ -16,68 +9,27 @@ namespace Glimpse.WebApi.Inspector
         {
             var logger = context.Logger;
 
-            //var originalControllerFactory = ControllerBuilder.Current.GetControllerFactory();
-            //var alternateImplementation = new ControllerFactory(context.ProxyFactory);
-            //IControllerFactory newControllerFactory;
+            //GlobalConfiguration.Configuration.MessageHandlers.Add(new GlimpseHandler());
 
-            //if (alternateImplementation.TryCreate(originalControllerFactory, out newControllerFactory))
-            //{
-            //    ControllerBuilder.Current.SetControllerFactory(newControllerFactory);
+            var dummyAuthorizationFilter = new DummyAuthorizationFilter(logger);
+            var alternateAuthorizationFilterImplementation = new Glimpse.WebApi.AlternateType.AuthorizationFilterAttribute(context.ProxyFactory);
+            System.Web.Http.Filters.AuthorizationFilterAttribute newAuthorizationFilter;
 
-            //    logger.Debug(Resources.ControllerFactorySetup, originalControllerFactory.GetType());
-            //}
+            if (alternateAuthorizationFilterImplementation.TryCreate(dummyAuthorizationFilter, out newAuthorizationFilter))
+            {
+                GlobalConfiguration.Configuration.Filters.Add(newAuthorizationFilter);
+                logger.Debug(Resources.ActionFilterSetup, dummyAuthorizationFilter.GetType());
+            }
 
-            //GlobalConfiguration.Configuration.Filters.Add(new AuditActionFilter());
+            var dummyActionFilter = new DummyActionFilter(logger);
+            var alternateActionFilterImplementation = new Glimpse.WebApi.AlternateType.ActionFilterAttribute(context.ProxyFactory);
+            System.Web.Http.Filters.ActionFilterAttribute newActionFilter;
 
-            //System.Web.Mvc.GlobalFilters.Filters.Add(new AuditActionFilter());
-
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new InfoHandler());
-
-            var dummyActionFilter = new GlimpseDummyActionFilter();
-            var alternateImplementation = new ActionFilter(context.ProxyFactory);
-            IActionFilter newActionFilter;
-
-            if (alternateImplementation.TryCreate(dummyActionFilter, out newActionFilter))
+            if (alternateActionFilterImplementation.TryCreate(dummyActionFilter, out newActionFilter))
             {
                 GlobalConfiguration.Configuration.Filters.Add(newActionFilter);
                 logger.Debug(Resources.ActionFilterSetup, dummyActionFilter.GetType());
             }
-
-
-        }
-    }
-
-    public class InfoHandler : DelegatingHandler
-    {
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            var response = await base.SendAsync(request, cancellationToken);
-            //publish info from request and response somewhere
-            return response;
-        }
-    }
-
-    public class GlimpseDummyActionFilter : ActionFilterAttribute
-    {
-        public override void OnActionExecuting(HttpActionContext context)
-        {
-            Trace.TraceWarning("Glimpse Dummy Action Filter  - OnActionExecuting:- Controller:{0} Action:{1} Arguments:{2}",
-               context.ControllerContext.ControllerDescriptor.ControllerName,
-               context.ActionDescriptor.ActionName,
-               context.ActionArguments.Count);
-        }
-
-        public override void OnActionExecuted(HttpActionExecutedContext context)
-        {
-            object returnVal = null;
-            var oc = context.Response.Content as ObjectContent;
-            if (oc != null)
-                returnVal = oc.Value;
-
-            Trace.TraceWarning("Glimpse Dummy Action Filter  - OnActionExecuted:- Controller:{0} Action:{1} Result:{2}",
-               context.ActionContext.ControllerContext.ControllerDescriptor.ControllerName,
-               context.ActionContext.ActionDescriptor.ActionName,
-               returnVal ?? "null");
         }
     }
 }

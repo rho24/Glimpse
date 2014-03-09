@@ -14,5 +14,7 @@ namespace Glimpse.WebApi.Model
         public IEnumerable<FilterModel> Filters { get; set; }
 
         public List<FormatterModel> Formatters { get; set; }
+
+        public IEnumerable<ServiceModel> Services { get; set; }
     }
 }

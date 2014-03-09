@@ -7,7 +7,7 @@ using Glimpse.Core.Message;
 
 namespace Glimpse.WebApi.Message
 {
-    public interface IExecutionMessage : ISourceMessage, IChildActionMessage, ITimelineMessage
+    public interface IExecutionMessage : ISourceMessage, IActionMessage, ITimelineMessage
     {
     }
 }

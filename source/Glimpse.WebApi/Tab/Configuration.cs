@@ -1,8 +1,11 @@
 ﻿using Glimpse.Core.Extensibility;
 using Glimpse.WebApi.Extensibility;
 using Glimpse.WebApi.Model;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web.Http;
 
 namespace Glimpse.WebApi.Tab
@@ -40,11 +43,20 @@ namespace Glimpse.WebApi.Tab
             var properties = new List<KeyValuePair<object, object>>();
             properties.Add(new KeyValuePair<object, object>("Include Error Detail Policy", WebApiConfig.IncludeErrorDetailPolicy.ToString()));
 
+            var allSingleServices = WebApiConfig.Services.GetType()
+            .GetField("_cacheSingle", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(WebApiConfig.Services);
+
+            var services = (allSingleServices as ConcurrentDictionary<Type, object>)
+                                    .Where(x => x.Value != null)
+                                    .OrderBy(x => x.Key.FullName)
+                                    .Select(x => new ServiceModel { Name = x.Value.GetType().FullName, Type = x.Key.FullName });
+
             return new ConfigurationModel
             {
                 Filters = filters,
                 Formatters = formatters,
-                Properties = properties
+                Properties = properties,
+                Services = services
             };
         }
 

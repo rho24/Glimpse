@@ -84,13 +84,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlternateType\ActionFilter.cs" />
+    <Compile Include="AlternateType\ActionFilterAttribute.cs" />
+    <Compile Include="AlternateType\AuthorizationFilterAttribute.cs" />
+    <Compile Include="AlternateType\IHttpActionInvoker.cs" />
     <Compile Include="AlternateType\IHttpRoute.cs" />
     <Compile Include="AlternateType\IRouteNameMixin.cs" />
     <Compile Include="AlternateType\IHttpRouteConstraint.cs" />
     <Compile Include="AlternateType\IHttpRouteConstraintRegex.cs" />
     <Compile Include="AlternateType\RouteNameMixin.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DelegatingHandler.cs" />
     <Compile Include="Extensibility\WebApiTab.cs" />
+    <Compile Include="Inspector\DummyActionFilter.cs" />
+    <Compile Include="Inspector\DummyAuthorizationFilter.cs" />
     <Compile Include="Inspector\ExecutionInspector.cs" />
     <Compile Include="Inspector\RoutesInspector.cs" />
     <Compile Include="Message\FilterBounds.cs" />
@@ -98,7 +104,6 @@
     <Compile Include="Message\IActionMessage.cs" />
     <Compile Include="Message\IBoundedFilterMessage.cs" />
     <Compile Include="Message\ICanceledFilterMessage.cs" />
-    <Compile Include="Message\IChildActionMessage.cs" />
     <Compile Include="Message\IExceptionFilterMessage.cs" />
     <Compile Include="Message\IExecutionMessage.cs" />
     <Compile Include="Message\IFilterMessage.cs" />
@@ -114,6 +119,7 @@
     <Compile Include="Model\RouteConstraintModel.cs" />
     <Compile Include="Model\RouteDataItemModel.cs" />
     <Compile Include="Model\RouteModel.cs" />
+    <Compile Include="Model\ServiceModel.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -125,6 +131,8 @@
     <Compile Include="Tab\Demo.cs" />
     <Compile Include="Tab\Execution.cs" />
     <Compile Include="Tab\Routes.cs" />
+    <Compile Include="WebApiFrameworkProvider.cs" />
+    <Compile Include="WebApiServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

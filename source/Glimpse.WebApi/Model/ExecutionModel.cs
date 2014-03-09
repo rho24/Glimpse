@@ -8,7 +8,7 @@ namespace Glimpse.WebApi.Model
     {
         public ExecutionModel(IExecutionMessage message)
         {
-            IsChildAction = message.IsChildAction;
+            IsChildAction = false;
             ExecutedType = message.ExecutedType;
             ExecutedMethod = message.ExecutedMethod;
             Duration = message.Duration;
