@@ -9,7 +9,7 @@ namespace Glimpse.WebApi.Model
 {
     public class ConfigurationModel
     {
-        public List<KeyValuePair<object, object>> Properties { get; set; }
+        public IDictionary<string, object> Properties { get; set; }
 
         public IEnumerable<FilterModel> Filters { get; set; }
 

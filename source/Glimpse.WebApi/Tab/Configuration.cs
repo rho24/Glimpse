@@ -40,8 +40,8 @@ namespace Glimpse.WebApi.Tab
                 MediaTypeMappings = WebApiConfig.Formatters.XmlFormatter.MediaTypeMappings
             });
 
-            var properties = new List<KeyValuePair<object, object>>();
-            properties.Add(new KeyValuePair<object, object>("Include Error Detail Policy", WebApiConfig.IncludeErrorDetailPolicy.ToString()));
+            var properties = new Dictionary<string, object>();
+            properties.Add("Include Error Detail Policy", WebApiConfig.IncludeErrorDetailPolicy.ToString());
 
             var allSingleServices = WebApiConfig.Services.GetType()
             .GetField("_cacheSingle", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(WebApiConfig.Services);
