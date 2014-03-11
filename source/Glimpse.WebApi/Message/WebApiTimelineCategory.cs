@@ -5,11 +5,11 @@ namespace Glimpse.WebApi.Message
     /// <summary>
     /// Options that can used for timeline events.
     /// </summary>
-    public class MvcTimelineCategory : Glimpse.Core.Message.TimelineCategory
+    public class WebApiMvcTimelineCategory : Glimpse.Core.Message.TimelineCategory
     {
         private static TimelineCategoryItem controller = new TimelineCategoryItem("Controller", "#FDBF45", "#DDA431");
         private static TimelineCategoryItem filter = new TimelineCategoryItem("Filter", "#72A3E4", "#5087CF");
-        private static TimelineCategoryItem view = new TimelineCategoryItem("View", "#10E309", "#0EC41D");
+        private static TimelineCategoryItem value = new TimelineCategoryItem("Value", "#10E309", "#0EC41D");
 
         /// <summary>
         /// Gets the timeline category for a controller.
@@ -30,9 +30,9 @@ namespace Glimpse.WebApi.Message
         /// <summary>
         /// Gets a timeline for a view.
         /// </summary>
-        public static TimelineCategoryItem View
+        public static TimelineCategoryItem Value
         {
-            get { return view; }
+            get { return value; }
         }
     }
 }

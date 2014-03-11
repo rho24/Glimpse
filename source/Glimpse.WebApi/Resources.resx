@@ -129,4 +129,7 @@
   <data name="RouteSetupReplacedRoute" xml:space="preserve">
     <value>Replaced Route of type '{0}' with proxy implementation.</value>
   </data>
+  <data name="ServicesSetup" xml:space="preserve">
+    <value>Proxied Service of type '{0}'.</value>
+  </data>
 </root>

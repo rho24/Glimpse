@@ -10,7 +10,7 @@ using Glimpse.WebApi.Message;
 
 namespace Glimpse.WebApi.AlternateType
 {
-    class AuthorizationFilterAttribute : AlternateType<System.Web.Http.Filters.AuthorizationFilterAttribute>
+    public class AuthorizationFilterAttribute : AlternateType<System.Web.Http.Filters.AuthorizationFilterAttribute>
     {
         private IEnumerable<IAlternateMethod> allMethods;
 
@@ -46,7 +46,7 @@ namespace Glimpse.WebApi.AlternateType
                     .AsActionMessage(actionContext.ControllerContext)
                     .AsFilterMessage(FilterCategory.Authorization, actionContext.GetTypeOrNull())
                     .AsBoundedFilterMessage(FilterBounds.Executing)
-                    .AsMvcTimelineMessage(MvcTimelineCategory.Filter);
+                    .AsWebApiTimelineMessage(WebApiMvcTimelineCategory.Filter);
 
                 context.MessageBroker.Publish(message);
             }

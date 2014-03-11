@@ -46,5 +46,14 @@ namespace Glimpse.WebApi.Message
 
             return message;
         }
+
+        public static T AsActionMessage<T>(this T message, string controllerName, string actionName)
+            where T : IActionMessage
+        {
+            message.ControllerName = controllerName;
+            message.ActionName = actionName;
+
+            return message;
+        }
     }
 }

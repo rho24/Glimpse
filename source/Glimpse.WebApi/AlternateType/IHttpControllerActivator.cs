@@ -1,19 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Web.Http.Controllers;
+using System.Web.Http.Filters;
 using Glimpse.Core.Extensibility;
 using Glimpse.Core.Extensions;
 using Glimpse.Core.Message;
 using Glimpse.WebApi.Message;
-using System;
-using System.Reflection;
+using System.Net.Http;
 
 namespace Glimpse.WebApi.AlternateType
 {
-    public class IHttpActionInvoker : AlternateType<System.Web.Http.Controllers.IHttpActionInvoker>
+    public class IHttpControllerActivator : AlternateType<System.Web.Http.Dispatcher.IHttpControllerActivator>
     {
         private IEnumerable<IAlternateMethod> allMethods;
 
-        public IHttpActionInvoker(IProxyFactory proxyFactory)
+        public IHttpControllerActivator(IProxyFactory proxyFactory)
             : base(proxyFactory)
         {
         }
@@ -24,28 +27,30 @@ namespace Glimpse.WebApi.AlternateType
             {
                 return allMethods ?? (allMethods = new List<IAlternateMethod>
                 {
-                    new InvokeActionAsync()
+                    new Create()
                 });
             }
         }
 
-        public class InvokeActionAsync : AlternateMethod
+        public class Create : AlternateMethod
         {
-            public InvokeActionAsync()
-                : base(typeof(System.Web.Http.Controllers.IHttpActionInvoker), "InvokeActionAsync")
+            public Create()
+                : base(typeof(System.Web.Http.Dispatcher.IHttpControllerActivator), "Create")
             {
             }
 
             public override void PostImplementation(IAlternateMethodContext context, TimerResult timerResult)
             {
-                var actionContext = (HttpActionContext)context.Arguments[0];
+                var activatorContext = (HttpRequestMessage)context.Arguments[0];
+                var controllerDescriptor = (HttpControllerDescriptor)context.Arguments[1];
+                var methodInfo = controllerDescriptor.ControllerType.GetMethods().First(m => m.Name.Equals(activatorContext.Method.Method, StringComparison.InvariantCultureIgnoreCase));
                 var message = new Message()
                     .AsTimedMessage(timerResult)
-                    .AsSourceMessage(actionContext.ControllerContext.Controller.GetType(), context.MethodInvocationTarget)
-                    .AsActionMessage(actionContext.ControllerContext)
-                    .AsFilterMessage(FilterCategory.Action, actionContext.GetTypeOrNull())
-                    .AsBoundedFilterMessage(FilterBounds.Executing)
-                    .AsWebApiTimelineMessage(WebApiMvcTimelineCategory.Filter);
+                        .AsSourceMessage(controllerDescriptor.ControllerType, context.MethodInvocationTarget)
+                        .AsActionMessage(controllerDescriptor.ControllerName, activatorContext.Method.Method)
+                    //    .AsFilterMessage(FilterCategory.Authorization, actionContext.GetTypeOrNull())
+                        .AsBoundedFilterMessage(FilterBounds.Executing)
+                        .AsWebApiTimelineMessage(WebApiMvcTimelineCategory.Controller);
 
                 context.MessageBroker.Publish(message);
             }
@@ -79,6 +84,7 @@ namespace Glimpse.WebApi.AlternateType
                 public TimelineCategoryItem EventCategory { get; set; }
 
                 public string EventSubText { get; set; }
+
             }
         }
     }

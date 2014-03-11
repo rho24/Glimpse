@@ -11,6 +11,8 @@ using WebApiHttpRoute = System.Web.Http.Routing.HttpRoute;
 using WebApiIHttpRoute = System.Web.Http.Routing.IHttpRoute;
 using WebApiRouteValueDictionary = System.Collections.Generic.IDictionary<string, object>;
 using System.Reflection;
+using System.Web;
+using System.Net.Http;
 
 namespace Glimpse.WebApi.Tab
 {
@@ -74,7 +76,10 @@ namespace Glimpse.WebApi.Tab
 
             var result = new List<RouteModel>();
 
-            using (var routes = GlobalConfiguration.Configuration.Routes)
+            var requestMessage = context.GetRequestContext<HttpContextWrapper>().Items["MS_HttpRequestMessage"] as HttpRequestMessage;
+            var WebApiConfig = (requestMessage != null) ? requestMessage.GetConfiguration() : GlobalConfiguration.Configuration;
+
+            using (var routes = WebApiConfig.Routes)
             {
                 foreach (var IHttpRoute in routes)
                 {

@@ -48,6 +48,9 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -87,6 +90,10 @@
     <Compile Include="AlternateType\ActionFilterAttribute.cs" />
     <Compile Include="AlternateType\AuthorizationFilterAttribute.cs" />
     <Compile Include="AlternateType\IHttpActionInvoker.cs" />
+    <Compile Include="AlternateType\IHttpActionSelector.cs" />
+    <Compile Include="AlternateType\IHttpControllerTypeResolver.cs" />
+    <Compile Include="AlternateType\IHttpControllerSelector.cs" />
+    <Compile Include="AlternateType\IHttpControllerActivator.cs" />
     <Compile Include="AlternateType\IHttpRoute.cs" />
     <Compile Include="AlternateType\IRouteNameMixin.cs" />
     <Compile Include="AlternateType\IHttpRouteConstraint.cs" />
@@ -108,7 +115,7 @@
     <Compile Include="Message\IExecutionMessage.cs" />
     <Compile Include="Message\IFilterMessage.cs" />
     <Compile Include="Message\IInvokeActionResultMessage.cs" />
-    <Compile Include="Message\MvcTimelineCategory.cs" />
+    <Compile Include="Message\WebApiTimelineCategory.cs" />
     <Compile Include="Message\MvcTimelineExtension.cs" />
     <Compile Include="Message\ProcessConstraintMessage.cs" />
     <Compile Include="Model\FilterModel.cs" />

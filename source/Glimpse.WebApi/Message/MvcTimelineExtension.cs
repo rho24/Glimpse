@@ -7,9 +7,9 @@ using Glimpse.WebApi.AlternateType;
 
 namespace Glimpse.WebApi.Message
 {
-    public static class MvcTimelineExtension
-    { 
-        public static T AsMvcTimelineMessage<T>(this T message, TimelineCategoryItem eventCategory)
+    public static class WebApiTimelineExtension
+    {
+        public static T AsWebApiTimelineMessage<T>(this T message, TimelineCategoryItem eventCategory)
             where T : ITimelineMessage
         {
             message.EventCategory = eventCategory; 
@@ -37,12 +37,12 @@ namespace Glimpse.WebApi.Message
                 return message;
             }
 
-            //var activeInvokerInvokeActionMethodMessage = message as ActionInvoker.InvokeActionMethod.Message;
-            //if (activeInvokerInvokeActionMethodMessage != null)
-            //{ 
-            //    message.EventName = string.Format("Controller: {0}.{1}", controllerName, actionName);
-            //    return message;
-            //}
+            var activeInvokerInvokeActionMethodMessage = message as IHttpControllerActivator.Create.Message;
+            if (activeInvokerInvokeActionMethodMessage != null)
+            {
+                message.EventName = string.Format("Controller: {0}.{1}", controllerName, actionName);
+                return message;
+            }
 
             var boundedFilterMessage = message as IBoundedFilterMessage;
             if (boundedFilterMessage != null)

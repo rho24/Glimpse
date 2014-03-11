@@ -47,7 +47,7 @@ namespace Glimpse.WebApi.AlternateType
                     .AsActionMessage(actionContext.ControllerContext)
                     .AsFilterMessage(FilterCategory.Action, actionContext.GetTypeOrNull())
                     .AsBoundedFilterMessage(FilterBounds.Executing)
-                    .AsMvcTimelineMessage(MvcTimelineCategory.Filter);
+                    .AsWebApiTimelineMessage(WebApiMvcTimelineCategory.Filter);
 
                 context.MessageBroker.Publish(message);
             }
@@ -102,7 +102,7 @@ namespace Glimpse.WebApi.AlternateType
                     .AsBoundedFilterMessage(FilterBounds.Executed)
                     //.AsCanceledFilterMessage(resultContext.Canceled)
                     //.AsExceptionFilterMessage(resultContext.Exception.GetTypeOrNull(), resultContext.ExceptionHandled)
-                    .AsMvcTimelineMessage(MvcTimelineCategory.Filter);
+                    .AsWebApiTimelineMessage(WebApiMvcTimelineCategory.Filter);
 
                 context.MessageBroker.Publish(message);
             }

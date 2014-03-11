@@ -95,5 +95,14 @@ namespace Glimpse.WebApi {
                 return ResourceManager.GetString("RouteSetupReplacedRoute", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxied Service of type &apos;{0}&apos;..
+        /// </summary>
+        internal static string ServicesSetup {
+            get {
+                return ResourceManager.GetString("ServicesSetup", resourceCulture);
+            }
+        }
     }
 }

@@ -9,11 +9,11 @@ using System.Reflection;
 
 namespace Glimpse.WebApi.AlternateType
 {
-    public class IHttpActionInvoker : AlternateType<System.Web.Http.Controllers.IHttpActionInvoker>
+    public class IHttpActionSelector : AlternateType<System.Web.Http.Controllers.IHttpActionSelector>
     {
         private IEnumerable<IAlternateMethod> allMethods;
 
-        public IHttpActionInvoker(IProxyFactory proxyFactory)
+        public IHttpActionSelector(IProxyFactory proxyFactory)
             : base(proxyFactory)
         {
         }
@@ -24,25 +24,25 @@ namespace Glimpse.WebApi.AlternateType
             {
                 return allMethods ?? (allMethods = new List<IAlternateMethod>
                 {
-                    new InvokeActionAsync()
+                    new SelectAction()
                 });
             }
         }
 
-        public class InvokeActionAsync : AlternateMethod
+        public class SelectAction : AlternateMethod
         {
-            public InvokeActionAsync()
-                : base(typeof(System.Web.Http.Controllers.IHttpActionInvoker), "InvokeActionAsync")
+            public SelectAction()
+                : base(typeof(System.Web.Http.Controllers.IHttpActionSelector), "SelectAction")
             {
             }
 
             public override void PostImplementation(IAlternateMethodContext context, TimerResult timerResult)
             {
-                var actionContext = (HttpActionContext)context.Arguments[0];
+                var actionContext = (HttpControllerContext)context.Arguments[0];
                 var message = new Message()
                     .AsTimedMessage(timerResult)
-                    .AsSourceMessage(actionContext.ControllerContext.Controller.GetType(), context.MethodInvocationTarget)
-                    .AsActionMessage(actionContext.ControllerContext)
+                    .AsSourceMessage(actionContext.Controller.GetType(), context.MethodInvocationTarget)
+//                    .AsActionMessage(actionContext.ControllerDescriptor..RequestContext)
                     .AsFilterMessage(FilterCategory.Action, actionContext.GetTypeOrNull())
                     .AsBoundedFilterMessage(FilterBounds.Executing)
                     .AsWebApiTimelineMessage(WebApiMvcTimelineCategory.Filter);
