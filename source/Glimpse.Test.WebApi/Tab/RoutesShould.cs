@@ -9,7 +9,8 @@ using Glimpse.Core.Message;
 using Glimpse.Test.Common; 
 using Moq;
 using Xunit;
-using Xunit.Extensions; 
+using Xunit.Extensions;
+using System.Collections.Specialized; 
 
 namespace Glimpse.Test.WebApi.Tab
 { 
@@ -30,7 +31,9 @@ namespace Glimpse.Test.WebApi.Tab
         [Theory, AutoMock]
         public void ReturnRouteInstancesEvenWhenContextIsNull(Routes tab, ITabContext context)
         {
-            context.Setup(x => x.GetRequestContext<HttpContextBase>()).Returns((HttpContextBase)null);
+            var httpBaseMock = new Mock<HttpContextBase>();
+            httpBaseMock.Setup(c => c.Items["MS_HttpRequestMessage"]).Returns(null);
+            context.Setup(c => c.GetRequestContext<HttpContextBase>()).Returns(httpBaseMock.Object);
 
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
              
@@ -43,6 +46,10 @@ namespace Glimpse.Test.WebApi.Tab
         [Theory, AutoMock]
         public void ReturnRouteInstancesEvenWhenRoutesTableEmpty(Routes tab, ITabContext context)
         {
+            var httpBaseMock = new Mock<HttpContextBase>();
+            httpBaseMock.Setup(c => c.Items["MS_HttpRequestMessage"]).Returns(null);
+            context.Setup(c => c.GetRequestContext<HttpContextBase>()).Returns(httpBaseMock.Object);
+
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
 
             var data = tab.GetData(context) as IList<RouteModel>;
@@ -54,6 +61,10 @@ namespace Glimpse.Test.WebApi.Tab
         [Theory, AutoMock]
         public void ReturnProperNumberOfInstances(Routes tab, ITabContext context)
         {
+            var httpBaseMock = new Mock<HttpContextBase>();
+            httpBaseMock.Setup(c => c.Items["MS_HttpRequestMessage"]).Returns(null);
+            context.Setup(c => c.GetRequestContext<HttpContextBase>()).Returns(httpBaseMock.Object);
+
             System.Web.Http.GlobalConfiguration.Configuration.Routes.Clear();
 
             var data = tab.GetData(context) as IList<RouteModel>;
@@ -91,7 +102,11 @@ namespace Glimpse.Test.WebApi.Tab
 
             context.TabStore.Setup(mb => mb.Get(typeof(IList<IHttpRoute.ProcessConstraint.Message>).AssemblyQualifiedName)).Returns(new List<IHttpRoute.ProcessConstraint.Message> { constraintMessage }).Verifiable();
             context.TabStore.Setup(mb => mb.Get(typeof(IList<IHttpRoute.GetRouteData.Message>).AssemblyQualifiedName)).Returns(new List<IHttpRoute.GetRouteData.Message> { routeMessage }).Verifiable();
-             
+
+            var httpBaseMock = new Mock<HttpContextBase>();
+            httpBaseMock.Setup(c => c.Items["MS_HttpRequestMessage"]).Returns(null);
+            context.Setup(c => c.GetRequestContext<HttpContextBase>()).Returns(httpBaseMock.Object);
+
             var model = tab.GetData(context) as List<RouteModel>;       
             var itemModel = model[0];
              
