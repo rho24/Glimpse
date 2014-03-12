@@ -40,10 +40,12 @@ namespace Glimpse.WebApi.Inspector
             context.CreateAlternateService<System.Web.Http.Dispatcher.IHttpControllerTypeResolver, Glimpse.WebApi.AlternateType.IHttpControllerTypeResolver>();
 
 
-            //context.CreateAlternateService<System.Web.Http.Controllers.IActionHttpMethodProvider, Glimpse.WebApi.AlternateType.IActionHttpMethodProvider>();
-            //context.CreateAlternateService<System.Web.Http.Controllers.IActionResultConverter, Glimpse.WebApi.AlternateType.IActionResultConverter>();
-            //context.CreateAlternateService<System.Web.Http.Controllers.IActionValueBinder, Glimpse.WebApi.AlternateType.IActionValueBinder>();
+            context.CreateAlternateService<System.Web.Http.Controllers.IActionHttpMethodProvider, Glimpse.WebApi.AlternateType.IActionHttpMethodProvider>();
+            context.CreateAlternateService<System.Web.Http.Controllers.IActionResultConverter, Glimpse.WebApi.AlternateType.IActionResultConverter>();
+            context.CreateAlternateService<System.Web.Http.Controllers.IActionValueBinder, Glimpse.WebApi.AlternateType.IActionValueBinder>();
+
             //context.CreateAlternateService<System.Web.Http.Description.IApiExplorer, Glimpse.WebApi.AlternateType.IApiExplorer>();
+
             //context.CreateAlternateService<System.Web.Http.Dispatcher.IAssembliesResolver, Glimpse.WebApi.AlternateType.IAssembliesResolver>();
             //context.CreateAlternateService<System.Web.Http.Validation.IBodyModelValidator, Glimpse.WebApi.AlternateType.IBodyModelValidator>();
             //context.CreateAlternateService<System.Net.Http.Formatting.IContentNegotiator, Glimpse.WebApi.AlternateType.IContentNegotiator>();
