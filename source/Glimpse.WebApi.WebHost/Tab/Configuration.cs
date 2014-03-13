@@ -16,7 +16,7 @@ namespace Glimpse.WebApi.Tab
     {
         public override object GetData(ITabContext context)
         {
-            var requestMessage = context.GetRequestContext<HttpContextWrapper>().Items["MS_HttpRequestMessage"] as HttpRequestMessage;
+            var requestMessage = context.GetRequestContext<HttpContextBase>().Items["MS_HttpRequestMessage"] as HttpRequestMessage;
             var WebApiConfig = (requestMessage != null) ? requestMessage.GetConfiguration() : GlobalConfiguration.Configuration;
 
             var filters = WebApiConfig.Filters.Select(f => new FilterModel { Type = f.Instance.GetType().ToString(), AllowMultiple = f.Instance.AllowMultiple, Scope = f.Scope.ToString() });

@@ -76,7 +76,7 @@ namespace Glimpse.WebApi.Tab
 
             var result = new List<RouteModel>();
 
-            var requestMessage = context.GetRequestContext<HttpContextWrapper>().Items["MS_HttpRequestMessage"] as HttpRequestMessage;
+            var requestMessage = context.GetRequestContext<HttpContextBase>().Items["MS_HttpRequestMessage"] as HttpRequestMessage;
             var WebApiConfig = (requestMessage != null) ? requestMessage.GetConfiguration() : GlobalConfiguration.Configuration;
 
             using (var routes = WebApiConfig.Routes)
