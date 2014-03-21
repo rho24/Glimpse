@@ -54,6 +54,7 @@
     <Compile Include="AlternateType\IActionHttpMethodProvider.cs" />
     <Compile Include="AlternateType\IActionResultConverter.cs" />
     <Compile Include="AlternateType\IActionValueBinder.cs" />
+    <Compile Include="AlternateType\IAssembliesResolver.cs" />
     <Compile Include="AlternateType\IHttpActionInvoker.cs" />
     <Compile Include="AlternateType\IHttpActionSelector.cs" />
     <Compile Include="AlternateType\IHttpControllerActivator.cs" />
