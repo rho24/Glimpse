@@ -13,5 +13,11 @@
         <assembly filename="source\Glimpse.Test.Mvc\bin\Release\Glimpse.Test.Mvc.dll" shadow-copy="true">
             <output type="xml" filename="builds\local\artifacts\test.mvc.xml" />
         </assembly>
+        <assembly filename="source\Glimpse.Test.WebApi.Core\bin\Release\Glimpse.Test.WebApi.Core.dll" shadow-copy="true">
+            <output type="xml" filename="builds\local\artifacts\test.wepapi.core.xml" />
+        </assembly>
+        <assembly filename="source\Glimpse.Test.WebApi.WebHost\bin\Release\Glimpse.Test.WebApi.WebHost.dll" shadow-copy="true">
+            <output type="xml" filename="builds\local\artifacts\test.wepapi.webhost.xml" />
+        </assembly>
     </assemblies>
 </xunit>
