@@ -10,19 +10,22 @@ namespace Glimpse.WebApi.WebHost.Inspector
         {
             var logger = context.Logger;
 
-            context.CreateAlternateService<System.Web.Http.Controllers.IHttpActionInvoker, Glimpse.WebApi.Core.AlternateType.IHttpActionInvoker>();
-            context.CreateAlternateService<System.Web.Http.Controllers.IHttpActionSelector, Glimpse.WebApi.Core.AlternateType.IHttpActionSelector>();
+            context.CreateAlternateService<System.Web.Http.Dispatcher.IHttpControllerSelector, Glimpse.WebApi.Core.AlternateType.IHttpControllerSelector>();
             context.CreateAlternateService<System.Web.Http.Dispatcher.IHttpControllerActivator, Glimpse.WebApi.Core.AlternateType.IHttpControllerActivator>();
 
-            context.CreateAlternateService<System.Web.Http.Dispatcher.IHttpControllerSelector, Glimpse.WebApi.Core.AlternateType.IHttpControllerSelector>();
-            context.CreateAlternateService<System.Web.Http.Dispatcher.IHttpControllerTypeResolver, Glimpse.WebApi.Core.AlternateType.IHttpControllerTypeResolver>();
+            //context.CreateAlternateService<System.Web.Http.Controllers.IActionHttpMethodProvider, Glimpse.WebApi.Core.AlternateType.IActionHttpMethodProvider>();
+            //context.CreateAlternateService<System.Web.Http.Controllers.IActionResultConverter, Glimpse.WebApi.Core.AlternateType.IActionResultConverter>();
+            //context.CreateAlternateService<System.Web.Http.Controllers.IActionValueBinder, Glimpse.WebApi.Core.AlternateType.IActionValueBinder>();
 
+            //context.CreateAlternateService<System.Web.Http.Dispatcher.IAssembliesResolver, Glimpse.WebApi.Core.AlternateType.IAssembliesResolver>();
 
-            context.CreateAlternateService<System.Web.Http.Controllers.IActionHttpMethodProvider, Glimpse.WebApi.Core.AlternateType.IActionHttpMethodProvider>();
-            context.CreateAlternateService<System.Web.Http.Controllers.IActionResultConverter, Glimpse.WebApi.Core.AlternateType.IActionResultConverter>();
-            context.CreateAlternateService<System.Web.Http.Controllers.IActionValueBinder, Glimpse.WebApi.Core.AlternateType.IActionValueBinder>();
+            //context.CreateAlternateService<System.Web.Http.Controllers.IHttpActionInvoker, Glimpse.WebApi.Core.AlternateType.IHttpActionInvoker>();
+            //context.CreateAlternateService<System.Web.Http.Controllers.IHttpActionSelector, Glimpse.WebApi.Core.AlternateType.IHttpActionSelector>();
 
-            context.CreateAlternateService<System.Web.Http.Dispatcher.IAssembliesResolver, Glimpse.WebApi.Core.AlternateType.IAssembliesResolver>();
+            //context.CreateAlternateService<System.Web.Http.Dispatcher.IHttpControllerTypeResolver, Glimpse.WebApi.Core.AlternateType.IHttpControllerTypeResolver>();
+
+            // ----
+
             //context.CreateAlternateService<System.Net.Http.Formatting.IContentNegotiator, Glimpse.WebApi.Core.AlternateType.IContentNegotiator>();
 
             //context.CreateAlternateService<System.Web.Http.Description.IApiExplorer, Glimpse.WebApi.AlternateType.IApiExplorer>();

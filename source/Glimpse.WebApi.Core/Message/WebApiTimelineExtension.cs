@@ -20,24 +20,27 @@ namespace Glimpse.WebApi.Core.Message
                 actionName = actionMessage.ActionName;
             }
 
-            //var viewRenderMessage = message as View.Render.Message;
-            //if (viewRenderMessage != null)
-            //{
-            //    message.EventName = string.Format("Render: {0}.{1}", controllerName, actionName);
-            //    return message;
-            //}
+            var controllerSelectorMessage = message as IHttpControllerSelector.SelectController.Message;
+            if (controllerSelectorMessage != null)
+            {
+                message.EventName = "Controller Selector";
+                return message;
+            }
 
+            var controllerActivatorMessage = message as IHttpControllerActivator.Create.Message;
+            if (controllerActivatorMessage != null)
+            {
+                message.EventName = string.Format("Controller: {0}.{1}", controllerName, actionName);
+                return message;
+            }
+
+            
+
+            
             var activeInvokerInvokeActionResultMessage = message as IInvokeActionResultMessage;
             if (activeInvokerInvokeActionResultMessage != null)
             {
                 message.EventName = string.Format("Action Result: {0}.{1}", controllerName, actionName);
-                return message;
-            }
-
-            var activeInvokerInvokeActionMethodMessage = message as IHttpControllerActivator.Create.Message;
-            if (activeInvokerInvokeActionMethodMessage != null)
-            {
-                message.EventName = string.Format("Controller: {0}.{1}", controllerName, actionName);
                 return message;
             }
 

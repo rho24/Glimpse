@@ -46,7 +46,7 @@ namespace Glimpse.WebApi.Core.AlternateType
                     .AsActionMessage(actionContext.ControllerContext)
                     .AsFilterMessage(FilterCategory.Authorization, actionContext.GetTypeOrNull())
                     .AsBoundedFilterMessage(FilterBounds.Executing)
-                    .AsWebApiTimelineMessage(WebApiMvcTimelineCategory.Filter);
+                    .AsWebApiTimelineMessage(WebApiTimelineCategory.Filter);
 
                 context.MessageBroker.Publish(message);
             }
