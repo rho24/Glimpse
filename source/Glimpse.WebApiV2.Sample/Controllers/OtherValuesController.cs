@@ -3,31 +3,33 @@ using System.Web.Http;
 
 namespace Glimpse.WebApiV2.Sample.Controllers
 {
+    [RoutePrefix("api/Other")]
     public class OtherValuesController : ApiController
     {
-        // GET api/values
+        // GET api/other
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        // GET api/other/5
+        [Route("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/values
+        // POST api/other
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT api/other/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/other/5
         public void Delete(int id)
         {
         }

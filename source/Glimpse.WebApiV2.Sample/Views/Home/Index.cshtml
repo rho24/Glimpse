@@ -4,7 +4,8 @@
     <p>
         <a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a>
         <a id="apiGetAll" class="btn btn-default">Api get all &raquo;</a>
-        <a id="apiGetIndividual" class="btn btn-default">Api individual all &raquo;</a>
+        <a id="apiGetIndividual" class="btn btn-default">Api individual &raquo;</a>
+        <a id="apiGetIndividualOther" class="btn btn-default">Api individual - attribute route &raquo;</a>
     </p>
 </div>
 <div class="row">
@@ -37,10 +38,16 @@
                         console.log('Get all success');
                     });
             });
-            $('#apiGetIndividual').click(function() {
+            $('#apiGetIndividual').click(function () {
                 $.get('/api/Values/5')
-                    .done(function() {
+                    .done(function () {
                         console.log('Get individual success');
+                    });
+            });
+            $('#apiGetIndividualOther').click(function () {
+                $.get('/api/Other/5')
+                    .done(function () {
+                        console.log('Get other individual success');
                     });
             });
         });
