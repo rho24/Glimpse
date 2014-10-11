@@ -124,7 +124,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.WebApi.Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.Test.WebApi.WebHost", "source\Glimpse.Test.WebApi.WebHost\Glimpse.Test.WebApi.WebHost.csproj", "{CABB56CF-61A4-4A12-9BEF-63060B9D55CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebApiV2.Sample", "Samples\Glimpse.WebApiV2.Sample\Glimpse.WebApiV2.Sample.csproj", "{9E214650-58C4-4DE2-A173-23981DA208B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.WebApiV2.Sample", "source\Glimpse.WebApiV2.Sample\Glimpse.WebApiV2.Sample.csproj", "{9E214650-58C4-4DE2-A173-23981DA208B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

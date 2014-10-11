@@ -215,23 +215,23 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\source\Glimpse.AspNet\Glimpse.AspNet.csproj">
+    <ProjectReference Include="..\Glimpse.AspNet\Glimpse.AspNet.csproj">
       <Project>{fddfc8a6-cddf-4bc6-9f07-e76050e1eee7}</Project>
       <Name>Glimpse.AspNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\source\Glimpse.Core\Glimpse.Core.csproj">
+    <ProjectReference Include="..\Glimpse.Core\Glimpse.Core.csproj">
       <Project>{c1289ce8-3259-41d9-893e-7a4e6f772d30}</Project>
       <Name>Glimpse.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\source\Glimpse.Mvc\Glimpse.Mvc.csproj">
+    <ProjectReference Include="..\Glimpse.Mvc\Glimpse.Mvc.csproj">
       <Project>{0a68b072-7918-45ac-bb78-f05789d0bf44}</Project>
       <Name>Glimpse.Mvc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\source\Glimpse.WebApi.Core\Glimpse.WebApi.Core.csproj">
+    <ProjectReference Include="..\Glimpse.WebApi.Core\Glimpse.WebApi.Core.csproj">
       <Project>{bb1a51a5-ab95-4d7a-8daa-6cfc62042548}</Project>
       <Name>Glimpse.WebApi.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\source\Glimpse.WebApi.WebHost\Glimpse.WebApi.WebHost.csproj">
+    <ProjectReference Include="..\Glimpse.WebApi.WebHost\Glimpse.WebApi.WebHost.csproj">
       <Project>{3cfda8aa-3475-4ba6-acc2-8e33e6c6210f}</Project>
       <Name>Glimpse.WebApi.WebHost</Name>
     </ProjectReference>
