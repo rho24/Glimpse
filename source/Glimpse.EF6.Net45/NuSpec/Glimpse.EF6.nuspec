@@ -14,13 +14,12 @@
         <description>Glimpse is a web debugging and diagnostics tool used to gain a better understanding of whats happening inside of your web application. Provides Glimpse tabs for EF6.</description>
         <summary>Glimpse tabs for Entity Framework 6.</summary>
         <releaseNotes>
-Welterweight release for Ado:
- - Support for Async queries
- - Added async indicator column to the SQL tab
+Featherweight release for EF:
+ - Fix bug lead to cast exceptions on GlimpseDbConnection by loosen GetDbProviderManifestToken behavior
         </releaseNotes>
         <tags>ASP.NET Web WebForms Glimpse EF EntityFramework SQL performance profiling timing diagnostics</tags>
         <dependencies> 
-          <dependency id="Glimpse.Ado" version="1.7.0" />
+          <dependency id="Glimpse.Ado" version="1.7.3" />
         </dependencies>
     </metadata>
     <files>

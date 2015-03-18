@@ -26,6 +26,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Glimpse.Core.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +37,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Glimpse.Core.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -122,6 +124,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Resource\LogosResource.cs" />
+    <Compile Include="Resource\PopupRedirectResource.cs" />
     <Compile Include="SerializationConverter\EnumerableOfITimelineMessageConverter.cs" />
     <Compile Include="Setting\Initializer.cs" />
     <Compile Include="Support\NuGetPackageDiscoverer.cs" />
@@ -312,7 +315,6 @@
     <EmbeddedResource Include="EmbeddedResources\glimpse_config.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -321,6 +323,7 @@
   </Target>
   -->
   <PropertyGroup>
+    <StyleCopOverrideSettingsFile>$(SolutionDir)\Source\Settings.StyleCop</StyleCopOverrideSettingsFile>
     <StyleCopMSBuildTargetsFile>..\..\packages\StyleCop.MSBuild.4.7.40.0\tools\StyleCop.targets</StyleCopMSBuildTargetsFile>
   </PropertyGroup>
   <Import Condition="Exists('$(StyleCopMSBuildTargetsFile)')" Project="$(StyleCopMSBuildTargetsFile)" />

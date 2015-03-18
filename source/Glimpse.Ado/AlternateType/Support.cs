@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common; 
 using System.Reflection;
-using System.Text;
 using Glimpse.Ado.Message;
 using Glimpse.Core.Message;
 
@@ -73,13 +72,8 @@ namespace Glimpse.Ado.AlternateType
 
             if (parameter.Value is byte[])
             {
-                var builder = new StringBuilder("0x");
-                foreach (var num in (byte[])parameter.Value)
-                {
-                    builder.Append(num.ToString("X2"));
-                }
-
-                return builder.ToString();
+                var blob = parameter.Value as byte[];
+                return "BLOB" + (blob != null ? string.Format(" {0} bytes", blob.Length) : string.Empty);
             }
 
             return parameter.Value;

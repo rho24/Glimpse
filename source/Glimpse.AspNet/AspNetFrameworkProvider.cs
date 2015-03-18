@@ -16,7 +16,7 @@ namespace Glimpse.AspNet
         /// </summary>
         private HttpContextBase context;
 
-        private readonly static bool AsyncSupportDisabled = Convert.ToBoolean(ConfigurationManager.AppSettings["Glimpse:DisableAsyncSupport"]);
+        private static readonly bool AsyncSupportDisabled = Convert.ToBoolean(ConfigurationManager.AppSettings["Glimpse:DisableAsyncSupport"]);
 
         public AspNetFrameworkProvider(ILogger logger)
         {
@@ -57,7 +57,9 @@ namespace Glimpse.AspNet
             }
 
             if (HttpContext.Current == null)
+            {
                 return AntiSerializationWrapper<HttpContextBase>.Unwrap(CallContext.LogicalGetData("Glimpse.HttpContext"));
+            }
 
             var context = new HttpContextWrapper(HttpContext.Current);
             CallContext.LogicalSetData("Glimpse.HttpContext", new AntiSerializationWrapper<HttpContextBase>(context));
@@ -69,16 +71,13 @@ namespace Glimpse.AspNet
 
         public void SetHttpResponseHeader(string name, string value)
         {
-            if (!Context.HeadersSent())
+            try
             {
-                try
-                {
-                    Context.Response.AppendHeader(name, value);
-                }
-                catch (Exception exception)
-                {
-                    Logger.Error("Exception setting Http response header '{0}' with value '{1}'.", exception, name, value);
-                }
+                Context.Response.AppendHeader(name, value);
+            }
+            catch (Exception exception)
+            {
+                Logger.Error("Exception setting Http response header '{0}' with value '{1}'.", exception, name, value);
             }
         }
 
@@ -164,7 +163,9 @@ namespace Glimpse.AspNet
             public static T Unwrap(object wrapper)
             {
                 if (ReferenceEquals(wrapper, null))
+                {
                     return default(T);
+                }
 
                 return ((AntiSerializationWrapper<T>)wrapper).value;
             }

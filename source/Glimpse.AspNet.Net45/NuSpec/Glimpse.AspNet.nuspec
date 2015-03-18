@@ -15,14 +15,12 @@
         <summary>ASP.NET 4.5 web debugging and diagnostics tool.</summary>
         <releaseNotes>
 Featherweight release for Asp.Net:
- - Update Route Inspector to ignore non AspNet based routes (this fixes problems with Glimpse and WebAPI)
- - Added updated Server Tab which shows common server variables
- - Clean up web.config transform to remove volume of commented out config in the glimpse section
- - Update Request Tab serialization to handle request validation failures 
+ - Added support for AspNetSynchronizationContext.
+ - Added support for Build Mode detection of assemblies in Environment tab.
         </releaseNotes>
         <tags>ASP.NET Web WebForms Glimpse</tags>
         <dependencies>
-          <dependency id="Glimpse" version="1.8.2" />
+          <dependency id="Glimpse" version="1.8.6" />
         </dependencies>
     </metadata>
     <files>

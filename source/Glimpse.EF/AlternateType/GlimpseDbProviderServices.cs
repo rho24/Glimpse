@@ -2,7 +2,6 @@
 using System.Data.Common;
 using System.Reflection;
 #if EF43 || EF5
-    using System.Data.Common;
     using System.Data.Common.CommandTrees;
     using System.Data.Metadata.Edm;  
 #else
@@ -22,14 +21,15 @@ namespace Glimpse.EF.AlternateType
 {
     internal class GlimpseDbProviderServices : DbProviderServices
     {
+#if (EF5 && NET45) || EF6
         private readonly MethodInfo setParameterValueMethod;
-
+#endif
         public GlimpseDbProviderServices(DbProviderServices innerProviderServices)
         {
             InnerProviderServices = innerProviderServices;
 
 #if (EF5 && NET45) || EF6
-            setParameterValueMethod = InnerProviderServices.GetType().GetMethod("SetParameterValue", BindingFlags.NonPublic | BindingFlags.Instance);
+            setParameterValueMethod = InnerProviderServices.GetType().GetMethod("SetParameterValue", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 #endif
         }
 
@@ -42,7 +42,7 @@ namespace Glimpse.EF.AlternateType
 
         protected override DbCommandDefinition CreateDbCommandDefinition(DbProviderManifest providerManifest, DbCommandTree commandTree)
         {
-            return new GlimpseDbCommandDefinition(InnerProviderServices.CreateCommandDefinition(commandTree));
+            return new GlimpseDbCommandDefinition(InnerProviderServices.CreateCommandDefinition(providerManifest, commandTree));
         }
 
         protected override void DbCreateDatabase(DbConnection connection, int? commandTimeout, StoreItemCollection storeItemCollection)
@@ -72,7 +72,9 @@ namespace Glimpse.EF.AlternateType
 
         protected override string GetDbProviderManifestToken(DbConnection connection)
         {
-            return InnerProviderServices.GetProviderManifestToken(((GlimpseDbConnection)connection).InnerConnection);
+            var glimpseConnection = connection as GlimpseDbConnection;
+            DbConnection rawConnection = glimpseConnection == null ? connection : glimpseConnection.InnerConnection;
+            return InnerProviderServices.GetProviderManifestToken(rawConnection);
         }
 
 #if (EF5 && NET45) || EF6Plus
@@ -89,9 +91,9 @@ namespace Glimpse.EF.AlternateType
 #endif
 
 #if (EF5 && NET45) || EF6
-        //SetParameterValue is internal and am unable to call it on the InnerProviderServices from here. 
-        //This breaks the provider wrapper when making spatial queries in EF 6.0.1
-        //http://stackoverflow.com/questions/19966106/spatial-datareader-and-wrapping-providers-in-ef6  
+        // SetParameterValue is internal and am unable to call it on the InnerProviderServices from here. 
+        // This breaks the provider wrapper when making spatial queries in EF 6.0.1
+        // http://stackoverflow.com/questions/19966106/spatial-datareader-and-wrapping-providers-in-ef6  
         protected override void SetDbParameterValue(DbParameter parameter, TypeUsage parameterType, object value)
         { 
             setParameterValueMethod.Invoke(InnerProviderServices, new[] { parameter, parameterType, value });
