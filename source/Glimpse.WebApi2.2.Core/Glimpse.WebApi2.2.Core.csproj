@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EBE8FD4C-B1D2-4520-8C8E-E7884F3DA3D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Glimpse.WebApi.Core</RootNamespace>
+    <AssemblyName>Glimpse.WebApi2.2.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\ActionFilterAttribute.cs">
+      <Link>ActionFilterAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\AuthorizationFilterAttribute.cs">
+      <Link>AuthorizationFilterAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IActionHttpMethodProvider.cs">
+      <Link>IActionHttpMethodProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IActionResultConverter.cs">
+      <Link>IActionResultConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IActionValueBinder.cs">
+      <Link>IActionValueBinder.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IAssembliesResolver.cs">
+      <Link>IAssembliesResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IHttpActionInvoker.cs">
+      <Link>IHttpActionInvoker.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IHttpActionSelector.cs">
+      <Link>IHttpActionSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IHttpControllerActivator.cs">
+      <Link>IHttpControllerActivator.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IHttpControllerSelector.cs">
+      <Link>IHttpControllerSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IHttpControllerTypeResolver.cs">
+      <Link>IHttpControllerTypeResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IHttpRoute.cs">
+      <Link>IHttpRoute.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IHttpRouteConstraint.cs">
+      <Link>IHttpRouteConstraint.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IHttpRouteConstraintRegex.cs">
+      <Link>IHttpRouteConstraintRegex.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\IRouteNameMixin.cs">
+      <Link>IRouteNameMixin.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\AlternateType\RouteNameMixin.cs">
+      <Link>RouteNameMixin.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Extensibility\WebApiTab.cs">
+      <Link>WebApiTab.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\FilterBounds.cs">
+      <Link>FilterBounds.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\FilterCategory.cs">
+      <Link>FilterCategory.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\IActionMessage.cs">
+      <Link>IActionMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\IBoundedFilterMessage.cs">
+      <Link>IBoundedFilterMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\ICanceledFilterMessage.cs">
+      <Link>ICanceledFilterMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\IExceptionFilterMessage.cs">
+      <Link>IExceptionFilterMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\IExecutionMessage.cs">
+      <Link>IExecutionMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\IFilterMessage.cs">
+      <Link>IFilterMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\IInvokeActionResultMessage.cs">
+      <Link>IInvokeActionResultMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\ProcessConstraintMessage.cs">
+      <Link>ProcessConstraintMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\WebApiTimelineCategory.cs">
+      <Link>WebApiTimelineCategory.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Message\WebApiTimelineExtension.cs">
+      <Link>WebApiTimelineExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Model\ConfigurationModel.cs">
+      <Link>ConfigurationModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Model\ExecutionModel.cs">
+      <Link>ExecutionModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Model\FilterModel.cs">
+      <Link>FilterModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Model\FormatterModel.cs">
+      <Link>FormatterModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Model\RouteActionDataTokenModel.cs">
+      <Link>RouteActionDataTokenModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Model\RouteConstraintModel.cs">
+      <Link>RouteConstraintModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Model\RouteDataItemModel.cs">
+      <Link>RouteDataItemModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Model\RouteModel.cs">
+      <Link>RouteModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Model\ServiceModel.cs">
+      <Link>ServiceModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Resources.Designer.cs">
+      <Link>Resources.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\SerializationConverter\ListOfExecutionModelConverter.cs">
+      <Link>ListOfExecutionModelConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\SerializationConverter\ListOfRouteModelConverter.cs">
+      <Link>ListOfRouteModelConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Glimpse.WebApi.Core\Tab\Execution.cs">
+      <Link>Execution.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Glimpse.WebApi.Core\Resources.resx">
+      <Link>Resources.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NuSpec\Glimpse.WebApi2.2.Core.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NuSpec\tools\install.ps1" />
+    <None Include="NuSpec\tools\uninstall.ps1" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glimpse.Core.Net40\Glimpse.Core.Net40.csproj">
+      <Project>{dd93b23c-e2d7-4283-9f3f-88f87271018b}</Project>
+      <Name>Glimpse.Core.Net40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NuSpec\lib\net45\.gitignore" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

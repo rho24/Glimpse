@@ -251,6 +251,9 @@ task merge -depends test {
 	
 	"   Glimpse.WindowsAzure.Storage.Net40"
     copy $source_dir\Glimpse.WindowsAzure.Storage.Net40\bin\Release\Glimpse.WindowsAzure.Storage.* $source_dir\Glimpse.WindowsAzure.Storage.Net40\nuspec\lib\net40\
+    
+    "   Glimpse.WebApi2.2.Core"
+    copy $source_dir\Glimpse.WebApi2.2.Core\bin\Release\Glimpse.WebApi* $source_dir\Glimpse.WebApi2.2.Core\nuspec\lib\net45\
 }
 
 task pack -depends merge {
@@ -309,6 +312,10 @@ task pack -depends merge {
     "   Glimpse.WindowsAzure.nuspec"
     $version = Get-AssemblyInformationalVersion $source_dir\Glimpse.WindowsAzure.Storage.Net40\Properties\AssemblyInfo.cs | Update-AssemblyInformationalVersion
     exec { & .\nuget.exe pack $source_dir\Glimpse.WindowsAzure.Storage.Net40\NuSpec\Glimpse.WindowsAzure.Storage.nuspec -OutputDirectory $build_dir\local -Symbols -Version $version }
+   
+    "   Glimpse.WebApi2.2.Core.nuspec"
+    $version = Get-AssemblyInformationalVersion $source_dir\Glimpse.WebApi2.2.Core\Properties\AssemblyInfo.cs | Update-AssemblyInformationalVersion
+    exec { & .\nuget.exe pack $source_dir\Glimpse.WebApi2.2.Core\NuSpec\Glimpse.WebApi2.2.Core.nuspec -OutputDirectory $build_dir\local -Symbols -Version $version }
     
     "   Glimpse.zip"
     New-Item $build_dir\local\zip\Core\net45 -Type directory -Force > $null
@@ -333,7 +340,8 @@ task pack -depends merge {
     New-Item $build_dir\local\zip\WebForms\net40 -Type directory -Force > $null
     New-Item $build_dir\local\zip\WebForms\net35 -Type directory -Force > $null
     New-Item $build_dir\local\zip\WindowsAzure\net40 -Type directory -Force > $null
-	New-Item $build_dir\local\zip\WindowsAzure.Storage\net40 -Type directory -Force > $null
+    New-Item $build_dir\local\zip\WindowsAzure.Storage\net40 -Type directory -Force > $null
+    New-Item $build_dir\local\zip\WebApi2.2.Core\net45 -Type directory -Force > $null
 
     copy $base_dir\license.txt $build_dir\local\zip
     
@@ -369,6 +377,8 @@ task pack -depends merge {
     copy $source_dir\Glimpse.WindowsAzure.Net40\nuspec\lib\net40\Glimpse.WindowsAzure.* $build_dir\local\zip\WindowsAzure\net40
 	
     copy $source_dir\Glimpse.WindowsAzure.Storage.Net40\nuspec\lib\net40\Glimpse.WindowsAzure.* $build_dir\local\zip\WindowsAzure.Storage\net40
+    
+    copy $source_dir\Glimpse.WebApi2.2.Core\nuspec\lib\net45\Glimpse.WebApi* $build_dir\local\zip\WebApi2.2.Core\net45
     
     #TODO: Add help .CHM file
     
