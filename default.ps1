@@ -148,6 +148,14 @@ task clean {
     "   Glimpse.WindowsAzure.Storage.Net40"
     Delete-Directory "$source_dir\Glimpse.WindowsAzure.Storage.Net40\bin"
     Delete-Directory "$source_dir\Glimpse.WindowsAzure.Storage.Net40\obj"
+
+    "   Glimpse.WebApi2.2.Core"
+    Delete-Directory "$source_dir\Glimpse.WebApi2.2.Core\bin"
+    Delete-Directory "$source_dir\Glimpse.WebApi2.2.Core\obj"
+
+    "   Glimpse.WebApi2.2.WebHost"
+    Delete-Directory "$source_dir\Glimpse.WebApi2.2.WebHost\bin"
+    Delete-Directory "$source_dir\Glimpse.WebApi2.2.WebHost\obj"
   
     "   Glimpse.Test.*"
     Delete-Directory "$source_dir\Glimpse.Test.AspNet\bin"
