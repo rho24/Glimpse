@@ -18,6 +18,7 @@
         <tags>ASP.NET Web WebApi Glimpse diagnostics performance profiling timing</tags>
         <dependencies>
           <dependency id="Glimpse" version="1.8.6" />
+          <dependency id="Glimpse.WebApi2.2.Core" version="1.0.0" />
           <dependency id="Castle.Core" version="3.1.0" />
         </dependencies>
     </metadata>
