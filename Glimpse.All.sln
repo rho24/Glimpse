@@ -661,7 +661,6 @@ Global
 		{A38DA38F-8669-4B99-9DE8-51BF747B9A67}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A38DA38F-8669-4B99-9DE8-51BF747B9A67}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A38DA38F-8669-4B99-9DE8-51BF747B9A67}.Release|x86.ActiveCfg = Release|Any CPU
-
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
