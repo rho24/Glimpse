@@ -196,13 +196,13 @@
       <Project>{0a68b072-7918-45ac-bb78-f05789d0bf44}</Project>
       <Name>Glimpse.Mvc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Glimpse.WebApi.Core\Glimpse.WebApi.Core.csproj">
-      <Project>{bb1a51a5-ab95-4d7a-8daa-6cfc62042548}</Project>
-      <Name>Glimpse.WebApi.Core</Name>
+    <ProjectReference Include="..\Glimpse.WebApi2.1.Core\Glimpse.WebApi2.1.Core.csproj">
+      <Project>{c0b441a9-d129-4656-927b-0fabd91f0231}</Project>
+      <Name>Glimpse.WebApi2.1.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Glimpse.WebApi.WebHost\Glimpse.WebApi.WebHost.csproj">
-      <Project>{3cfda8aa-3475-4ba6-acc2-8e33e6c6210f}</Project>
-      <Name>Glimpse.WebApi.WebHost</Name>
+    <ProjectReference Include="..\Glimpse.WebApi2.1.WebHost\Glimpse.WebApi2.1.WebHost.csproj">
+      <Project>{2ae0e6c7-c2f6-4897-bcf0-6073f8410ca4}</Project>
+      <Name>Glimpse.WebApi2.1.WebHost</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
