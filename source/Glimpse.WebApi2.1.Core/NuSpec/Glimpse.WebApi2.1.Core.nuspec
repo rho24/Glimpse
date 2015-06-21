@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <!-- Values in dollar $igns are automatically pulled from the AssemblyInfo.cs attributes by psake build script -->
+    <metadata>
+        <id>Glimpse.WebApi2.1.Core</id>
+        <version>0.0.0</version><!-- Replaced at build time by AssemblyInformationalVersion in AssemblyInfo.cs -->
+        <title>Glimpse Web Api 2.1 Core</title>
+        <authors>nmolnar, avanderhoorn</authors>
+        <owners>nmolnar, avanderhoorn</owners>
+        <licenseUrl>http://www.opensource.org/licenses/apache2.0</licenseUrl>
+        <projectUrl>http://getglimpse.com</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <iconUrl>http://getglimpse.com/content/glimpse100.png</iconUrl>
+        <description>Glimpse is a web debugging and diagnostics tool used to gain a better understanding of whats happening inside of your ASP.NET Web Api 2.1 application.</description>
+        <summary>ASP.NET Web Api 2.1 web debugging and diagnostics tool.</summary>
+        <releaseNotes>
+        </releaseNotes>
+        <tags>ASP.NET Web WebApi Glimpse diagnostics performance profiling timing</tags>
+        <dependencies>
+          <dependency id="Glimpse" version="1.8.6" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="tools\*.*" target="tools" />
+        <file src="lib\net45\*.*" target="lib\net45" />
+        <file src="..\..\Glimpse.WebApi.Core\**\*.*" target="src" exclude="..\..\Glimpse.WebApi.Core\bin\**;..\..\Glimpse.WebApi.Core\obj\**;" />
+    </files>
+</package>

@@ -156,6 +156,14 @@ task clean {
     "   Glimpse.WebApi2.2.WebHost"
     Delete-Directory "$source_dir\Glimpse.WebApi2.2.WebHost\bin"
     Delete-Directory "$source_dir\Glimpse.WebApi2.2.WebHost\obj"
+
+    "   Glimpse.WebApi2.1.Core"
+    Delete-Directory "$source_dir\Glimpse.WebApi2.1.Core\bin"
+    Delete-Directory "$source_dir\Glimpse.WebApi2.1.Core\obj"
+
+    "   Glimpse.WebApi2.1.WebHost"
+    Delete-Directory "$source_dir\Glimpse.WebApi2.1.WebHost\bin"
+    Delete-Directory "$source_dir\Glimpse.WebApi2.1.WebHost\obj"
   
     "   Glimpse.Test.*"
     Delete-Directory "$source_dir\Glimpse.Test.AspNet\bin"
@@ -265,6 +273,12 @@ task merge -depends test {
     
     "   Glimpse.WebApi2.2.WebHost"
     copy $source_dir\Glimpse.WebApi2.2.WebHost\bin\Release\Glimpse.WebApi2.2.WebHost.* $source_dir\Glimpse.WebApi2.2.WebHost\nuspec\lib\net45\
+    
+    "   Glimpse.WebApi2.1.Core"
+    copy $source_dir\Glimpse.WebApi2.1.Core\bin\Release\Glimpse.WebApi2.1.Core.* $source_dir\Glimpse.WebApi2.1.Core\nuspec\lib\net45\
+    
+    "   Glimpse.WebApi2.1.WebHost"
+    copy $source_dir\Glimpse.WebApi2.1.WebHost\bin\Release\Glimpse.WebApi2.1.WebHost.* $source_dir\Glimpse.WebApi2.1.WebHost\nuspec\lib\net45\
 }
 
 task pack -depends merge {
@@ -331,6 +345,14 @@ task pack -depends merge {
     "   Glimpse.WebApi2.2.WebHost.nuspec"
     $version = Get-AssemblyInformationalVersion $source_dir\Glimpse.WebApi2.2.WebHost\Properties\AssemblyInfo.cs | Update-AssemblyInformationalVersion
     exec { & .\nuget.exe pack $source_dir\Glimpse.WebApi2.2.WebHost\NuSpec\Glimpse.WebApi2.2.WebHost.nuspec -OutputDirectory $build_dir\local -Symbols -Version $version }
+   
+    "   Glimpse.WebApi2.1.Core.nuspec"
+    $version = Get-AssemblyInformationalVersion $source_dir\Glimpse.WebApi2.1.Core\Properties\AssemblyInfo.cs | Update-AssemblyInformationalVersion
+    exec { & .\nuget.exe pack $source_dir\Glimpse.WebApi2.1.Core\NuSpec\Glimpse.WebApi2.1.Core.nuspec -OutputDirectory $build_dir\local -Symbols -Version $version }
+   
+    "   Glimpse.WebApi2.1.WebHost.nuspec"
+    $version = Get-AssemblyInformationalVersion $source_dir\Glimpse.WebApi2.1.WebHost\Properties\AssemblyInfo.cs | Update-AssemblyInformationalVersion
+    exec { & .\nuget.exe pack $source_dir\Glimpse.WebApi2.1.WebHost\NuSpec\Glimpse.WebApi2.1.WebHost.nuspec -OutputDirectory $build_dir\local -Symbols -Version $version }
     
     "   Glimpse.zip"
     New-Item $build_dir\local\zip\Core\net45 -Type directory -Force > $null
@@ -358,6 +380,8 @@ task pack -depends merge {
     New-Item $build_dir\local\zip\WindowsAzure.Storage\net40 -Type directory -Force > $null
     New-Item $build_dir\local\zip\WebApi2.2.Core\net45 -Type directory -Force > $null
     New-Item $build_dir\local\zip\WebApi2.2.WebHost\net45 -Type directory -Force > $null
+    New-Item $build_dir\local\zip\WebApi2.1.Core\net45 -Type directory -Force > $null
+    New-Item $build_dir\local\zip\WebApi2.1.WebHost\net45 -Type directory -Force > $null
 
     copy $base_dir\license.txt $build_dir\local\zip
     
@@ -396,6 +420,8 @@ task pack -depends merge {
     
     copy $source_dir\Glimpse.WebApi2.2.Core\nuspec\lib\net45\Glimpse.WebApi* $build_dir\local\zip\WebApi2.2.Core\net45
     copy $source_dir\Glimpse.WebApi2.2.WebHost\nuspec\lib\net45\Glimpse.WebApi* $build_dir\local\zip\WebApi2.2.WebHost\net45
+    copy $source_dir\Glimpse.WebApi2.1.Core\nuspec\lib\net45\Glimpse.WebApi* $build_dir\local\zip\WebApi2.1.Core\net45
+    copy $source_dir\Glimpse.WebApi2.1.WebHost\nuspec\lib\net45\Glimpse.WebApi* $build_dir\local\zip\WebApi2.1.WebHost\net45
     
     #TODO: Add help .CHM file
     
