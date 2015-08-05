@@ -77,7 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="NuSpec\Glimpse.WebApi2.1.WebHost.nuspec">
       <SubType>Designer</SubType>
     </None>
